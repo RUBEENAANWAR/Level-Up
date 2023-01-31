@@ -1,0 +1,33 @@
+header{
+    min-height: 70px;
+    background-color: #AFAFAF;
+    width:100%;
+    overflow:hidden;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+}
+header .logo{
+    flex:1;
+}
+header a{
+    text-transform: uppercase;
+    color: rgb(117, 72, 72);
+}
+
+header ul li{
+    display: inline-block;
+    opacity:0.7;
+    padding: 0 20px;
+}
+ul .links{
+    text-decoration: none;
+}
+header ul li:hover{
+    opacity:1;
+}
+.menu{
+    display: none;
+}
