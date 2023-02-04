@@ -1,34 +1,53 @@
-import React,{useState,useContext} from "react";
+import React,{useContext} from "react";
 import {GlobalState} from '../../GlobalState'
 import Menu from './icon/menu.svg'
 import { Link } from "react-router-dom";
 import  Logo  from "./icon/logo.png";
+import axios from 'axios'
+import './header.css'
+//import Stack from '@mui/material'
 
 
-function Header(){
-    const value=useContext(GlobalState)
+const AdminHeader=()=>{
+    const state=useContext(GlobalState)
+    const [isLogged,setIsLogged]=state.adminAPI.isLogged
+    const [isAdmin,setIsAdmin]=state.adminAPI.isAdmin
+
+    const adminLogout= async()=>{
+        await axios.get('/admin/adminLogout')
+        localStorage.clear()
+        setIsAdmin(false)
+        setIsLogged(false)
+
+    }
+ 
+    console.log(state);
+    function LoggerRouter(){
+        return(
+            <>
+            {/* <li>ADMIN</li> */}
+            <li><Link to="/adminLogin" onClick={adminLogout}>Logout</Link></li>
+            </>   
+        )
+    }
+
     return (
      <header>
-        <div className="menu">
-           <img src={Menu} alt="" width="20"/>
+        <div className="menu"><img src={Menu} alt="" width="20"/>
         </div>
-
         <div className="logo">
-            <h1>
-                <Link to="/">Levelup</Link>
-            </h1>
+                <Link to="/AdminHome">< img src={Logo} alt="" width="60"/></Link>
         </div>
-        <ul className="links">
-            <li><Link to='/adminLogin'>Login</Link></li>
-            <li><Link to='/adminLogout'>Logout</Link></li>
-            <li>
-                <img src={ Logo } alt='' width="70"/>
-            </li>
 
-        </ul>
-         
-     </header>
-    )
+        <ul>
+        {isAdmin}
+        {
+            isLogged ? LoggerRouter():""
+        }  
+        </ul>  
+     </header>  
+    )  
 }
 
-export default Header;
+export default AdminHeader;
+

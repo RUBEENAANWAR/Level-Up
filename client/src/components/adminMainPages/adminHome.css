@@ -1,0 +1,77 @@
+/* .body{
+    background: #2F2F2F;
+} */
+
+.card1 {
+    margin:8rem 10rem;
+    border-radius: 2rem;
+    justify-content: center;
+}
+
+.card1 h2{
+    display: flex;
+    justify-content: center;
+    padding-top: 2rem;
+}
+
+.first-line{
+     display: flex;
+}
+
+.card2 {
+    margin:8rem 10rem;
+    border-radius: 2rem;
+    justify-content: center;
+}
+.card2 h2{
+    display: flex;
+    justify-content: center;
+    padding-top: 2rem;
+}
+.second-line{
+    display: flex;
+}
+.card3 {
+    margin:8rem 10rem;
+    border-radius: 2rem;
+    justify-content: center;
+}
+.card3 h2{
+    display: flex;
+    justify-content: center;
+    padding-top: 2rem;
+}
+.card4 {
+    margin:8rem 10rem;
+    border-radius: 2rem;
+    justify-content: center;
+}
+.card4 h2{
+    display: flex;
+    justify-content: center;
+    padding-top: 2rem;
+}
+.card5 {
+    margin:8rem 10rem;
+    border-radius: 2rem;
+    justify-content: center;
+}
+.card5 h2{
+    display: flex;
+    justify-content: center;
+    padding-top: 2rem;
+}
+.card6 {
+    margin:8rem 10rem;
+    border-radius: 2rem;
+    justify-content: center;
+}
+.card6 h2{
+    display: flex;
+    justify-content: center;
+    padding-top: 2rem;
+}
+
+.third-line{
+    display: flex;
+}

@@ -1,9 +1,10 @@
 import React,{useState} from 'react';
 import {Link} from 'react-router-dom'
 import axios from 'axios';
-import './adminRegister.css'
+import './adminRegister.css';
+import swal from 'sweetalert2';
 
-function adminRegister() {
+function AdminRegister() {
   const [admin,setAdmin]=useState({
     name:"", email:"",password:""
   })
@@ -21,7 +22,8 @@ function adminRegister() {
       window.location.href='/adminHome';
 
     } catch (err) {
-      alert(err.response.data.msg)
+        swal.fire(err.response.data.msg);
+      //alert(err.response.data.msg)
       //console.log(req.cookies);
       
     }
@@ -31,11 +33,11 @@ function adminRegister() {
     <div className='register-page'>
       <form onSubmit={registerSubmit}>
         <h2>Admin Register</h2>
-      <input type="text" name="name" required
+      <input type="text" name="name" 
         placeholder="Name" value={admin.name} onChange={onChangeInput}/>
-        <input type="email" name="email" required
+        <input type="email" name="email" 
         placeholder="Email" value={admin.email} onChange={onChangeInput}/>
-         <input type="password" name="password" required autoComplete='on'
+         <input type="password" name="password" autoComplete='on'
         placeholder="Password" value={admin.password} onChange={onChangeInput}/>
 
         <div className='row'>
@@ -49,4 +51,4 @@ function adminRegister() {
   )
 }
 
-export default adminRegister
+export default AdminRegister

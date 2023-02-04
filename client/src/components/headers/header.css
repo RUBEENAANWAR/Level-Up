@@ -31,3 +31,6 @@ header ul li:hover{
 .menu{
     display: none;
 }
+.logout{
+    text-decoration: none;
+}

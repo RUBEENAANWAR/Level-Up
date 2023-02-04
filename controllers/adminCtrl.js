@@ -9,12 +9,14 @@ const adminCtrl = {
       const admin = await Admins.findOne({ email });
       if (admin)
         return res.status(400).json({ msg: "This email already exists" });
-
       if (password.length < 6)
         return res
           .status(400)
           .json({ msg: "Password should be atleast 6 characters long" });
 
+      if(name==="" || email==="" ||password===""){
+        return res.status(400).json({ msg: "All fields should be filled" });
+      }    
       //password encryption
       const passwordHash = await bcrypt.hash(password, 12);
       const newAdmin = new Admins({
@@ -54,6 +56,9 @@ const adminCtrl = {
       if (!admin) return res.status(400).json({ msg: "Admin doesn't exist" });
       const isMatch = await bcrypt.compare(password, admin.password);
       if (!isMatch) return res.status(400).json({ msg: "Incorrect password" });
+      if(email==="" || password===""){
+        return res.status(400).json({ msg: "All fields should be filled" });
+      } 
 
       //if login success create access token and refresh token
       const access_token = createAccessToken({ id: admin._id });
@@ -82,18 +87,20 @@ const adminCtrl = {
       const rf_token = req.cookies.refreshtoken;
       if (!rf_token)
         return res.status(400).json({ msg: "Please Login or Register" });
-      jwt.verify(rf_token, process.env.REFRESH_TOKEN_SECRET, (err, admin) => {
+      jwt.verify(rf_token, process.env.REFRESH_TOKEN_SECRET, async(err, admin) => {
         if (err)
           return res.status(400).json({ msg: "Please Login or Register" });
+        const adminDetails=await Admins.findById(admin.id).select("-password")
+        
         const accesstoken = createAccessToken({ id: admin._id });
-        res.json({ accesstoken,rf_token });
+        res.json({ accesstoken,rf_token ,adminDetails});
       });
     
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }
   },
-  getAdmin: async (req, res) => {
+  getAdmin: async(req, res) => {
     try {
       const admin = await Admins.findById(req.admin.id).select("-password");
       if (!admin) return res.status(400).json({ msg: "Admin does not exist" });

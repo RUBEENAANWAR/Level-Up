@@ -1,6 +1,8 @@
 import React,{useState} from 'react';
 import axios from 'axios'
-import './adminLogin.css'
+import './adminLogin.css';
+import swal from 'sweetalert2';
+
 
 function AdminLogin() {
   const [admin,setAdmin]=useState({
@@ -20,7 +22,9 @@ function AdminLogin() {
       window.location.href='/adminHome';
 
     } catch (err) {
-         alert(err.response.data.msg)
+         swal.fire(err.response.data.msg);
+
+         //alert(err.response.data.msg)
       //console.log(req.cookies);
       
     }
@@ -30,10 +34,10 @@ function AdminLogin() {
     <div className='login-page'>
       <form onSubmit={loginSubmit}>
         <h2>Admin Login</h2>
-        <input type="email" name="email" required
+        <input type="email" name="email"
         placeholder="Email" value={admin.email} onChange={onChangeInput}/>
         
-         <input type="password" name="password" required autoComplete='on'
+         <input type="password" name="password" autoComplete='on'
         placeholder="Password" value={admin.password} onChange={onChangeInput}/>
 
         <div className='row'>
