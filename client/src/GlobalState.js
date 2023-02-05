@@ -1,6 +1,7 @@
 import React, {createContext,useEffect,useState } from "react";
 import axios from "axios";
 import AdminAPI from "./api/AdminAPI";
+import UserAPI from "./api/UserAPI";
 
 export const GlobalState = createContext()
 export const DataProvider=({children})=>{
@@ -17,7 +18,8 @@ export const DataProvider=({children})=>{
 
     const state={
         token:[token,setToken],
-        adminAPI:AdminAPI(token)
+        adminAPI:AdminAPI(token),
+        userAPI:UserAPI(token)
     }
     return(
         

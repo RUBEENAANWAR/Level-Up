@@ -28,103 +28,23 @@ function LoggedRouter(){
       GetAdmin()
      },[])
 
-  return (
-    
-    <div>
-    <div className="container emp-profile">
-      <form>
-        <div className="row">
-          <div className="col-md-4">
-            <div className="profile-img">
-              <img
-                src ={ProfPic} style={{width:"8rem",height:"8rem"}}
-                alt=""
-              />
-              <div className="change btn-primary">
-                Change Photo
-                <input type="file" name="file" />
-              </div>
-            </div>
-          </div>
-          <div className="col-md-6">
-            <input
-              type="button"
-              className="btn btn-primary"
-              value="Edit Profile"
-            />
-          </div>
+     return (
+      <div className="main">
+        <div className="container emp">
+        <div className="profile-container">
+  <img src={adminDetails.avatar} alt=""/>
+  
+  <h1><i>{adminDetails.name}</i></h1>
+  <h3>({adminDetails.role})</h3>
+  
+  <p>{adminDetails.email}</p>
+  <p>{adminDetails.mobile}</p>
+</div>
         </div>
-        <div className="row">
-          <div className="col-md-8">
-            <div className="tab-content profile-tab" id="myTabContent">
-              <div
-                className="tab-pane fade show active"
-                id="home"
-                role="tabpanel"
-                aria-labelledby="home-tab">
-                <div className="row">
-                  <div className="col-md-6">
-                    <label>Name</label>
-                  </div>
-                  <div className="col-md-6">
-                    <p>
-                      {adminDetails?.name}
-                    </p>
-                  </div>
-                </div>
-                <div className="row">
-                  <div className="col-md-6">
-                    <label>Gender</label>
-                  </div>
-                  
-                </div>
-                <div className="row">
-                  <div className="col-md-6">
-                    <label>Email</label>
-                  </div>
-                  <div className="col-md-6">
-                    <p>{adminDetails?.email}</p>
-                  </div>
-                </div>
-                <div className="row">
-                  <div className="col-md-6">
-                    <label>Phone</label>
-                  </div>
-                  <div className="col-md-6">
-                    <p>{adminDetails?.mobile}</p>
-                  </div>
-                </div>
-               </div>
-               <div
-                className="tab-pane fade"
-                id="profile"
-                role="tabpanel"
-                aria-labelledby="profile-tab" >
-                <div className="row">
-                  <div className="col-md-6">
-                    <label>Experience</label>
-                  </div>
-                  <div className="col-md-6">
-                    <p>Expert</p>
-                  </div>
-                </div>
-                <div className="row">
-                  <div className="col-md-12">
-                    <label>Your Bio</label>
-                    <br />
-                    <p>Your detail description</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  )
-}
+        <button className="Button-style">Change Profile Pic</button>
+      </div>
+    );
+  }
 
 return(
   <>
