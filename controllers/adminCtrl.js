@@ -26,6 +26,8 @@ const adminCtrl = {
       });
       console.log(newAdmin);
       //save to mongodb
+      await newAdmin.save();
+
 
       //Then create jsonwebtoken for authentication
       const access_token = createAccessToken({ id: newAdmin._id });
@@ -35,7 +37,6 @@ const adminCtrl = {
         path: "/admin/refresh_token",
         maxAge: 30 * 24 * 60 * 60 * 1000, //30days
       });
-      await newAdmin.save();
 
       res.json({
         msg: "Registered Successfully",

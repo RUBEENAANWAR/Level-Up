@@ -15,7 +15,7 @@ useEffect(()=>{
                 
                 //console.log(token,"this is token");
                 setIsLogged(true)
-                 res.data.role==="user" ? setIsUser(true) : setIsUser(false)
+                 res.data.userDetails.role==="user" ? setIsUser(true) : setIsUser(false)
                 // console.log(res,"data");
                
             } catch(err){

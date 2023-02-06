@@ -11,9 +11,19 @@ export const DataProvider=({children})=>{
         const res =await axios.get('/admin/refresh_token')
        setToken(res.data.accesstoken)
     }
+
+    const userRefreshToken=async ()=>{
+        const res =await axios.get('/user/refresh_token')
+       setToken(res.data.accesstoken)
+    }
+
     useEffect(()=>{
         const firstLogin=localStorage.getItem('firstLogin')
+        const studentLogin=localStorage.getItem('studentLogin')
+
         if(firstLogin) refreshToken()
+    
+        if(studentLogin) userRefreshToken()
     },[])
 
     const state={

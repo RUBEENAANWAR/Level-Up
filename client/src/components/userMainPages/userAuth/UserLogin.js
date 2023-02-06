@@ -17,7 +17,7 @@ function UserLogin() {
     e.preventDefault()
     try {
       await axios.post('/user/userLogin',{...user})
-      localStorage.setItem('firstLogin',true)
+      localStorage.setItem('studentLogin',true)
       window.location.href='/userHome';
 
     } catch (err) {
@@ -30,23 +30,42 @@ function UserLogin() {
   }
 
   return (
-    <div className='login-page'>
-      <form onSubmit={loginSubmit}>
-        <h2>User Login</h2>
-        <input type="email" name="email"
-        placeholder="Email" value={user.email} onChange={onChangeInput}/>
-        
-         <input type="password" name="password" autoComplete='on'
-        placeholder="Password" value={user.password} onChange={onChangeInput}/>
+    <div className="main-container">
+      <div className="Container" style={{ marginLeft: "220px" }}>
+        <form onSubmit={loginSubmit}>
+          <h2>Student Login</h2>
+          <div className="content">
+            <div className="input-box">
+              <label htmlFor="email">Email</label>
+              <input
+                type="email"
+                placeholder="Enter email"
+                name="email"
+                onChange={onChangeInput}
+                value={user.email}
+              />
+            </div>
 
-        <div className='row'>
-          <button className='buttonStyle' type='submit'>Login</button>
-
-        </div>
-      </form>
-
+            <div className="input-box">
+              <label htmlFor="password">Password</label>
+              <input
+                type="password"
+                placeholder="Enter password"
+                name="password"
+                onChange={onChangeInput}
+                value={user.password}
+              />
+            </div>
+          </div>
+          <div className="button-container">
+            <button type="submit">Register</button>
+            
+          </div>
+        </form>
+      </div>
     </div>
   )
+  
 }
 
 export default UserLogin;

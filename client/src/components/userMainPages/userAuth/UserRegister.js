@@ -18,11 +18,15 @@ function UserRegister() {
     e.preventDefault()
     try {
       await axios.post('user/userRegister',{...user})
-      localStorage.setItem('firstLogin',true)
+      localStorage.setItem('studentLogin',true)
       window.location.href='/userHome';
 
     } catch (err) {
-        swal.fire(err.response.data.msg);
+      swal.fire({
+        text: err.response.data.msg,
+        icon: "warning",
+        confirmButtonColor:"#b8121b"
+      });
       //alert(err.response.data.msg)
       //console.log(req.cookies);
       
@@ -30,25 +34,69 @@ function UserRegister() {
   }   
 
   return (
-    <div className='register-page'>
-      <form onSubmit={registerSubmit}>
-        <h2>User Register</h2>
-      <input type="text" name="name" 
-        placeholder="Name" value={user.name} onChange={onChangeInput}/>
-        <input type="email" name="email" 
-        placeholder="Email" value={user.email} onChange={onChangeInput}/>
-         <input type="password" name="password" autoComplete='on'
-        placeholder="Password" value={user.password} onChange={onChangeInput}/>
+    <div className="main-container">
+      <div className="Container" style={{ marginLeft: "220px" }}>
+        <form onSubmit={registerSubmit}>
+          <h2>Student Registration</h2>
+          <div className="content">
+            <div className="input-box">
+              <label htmlFor="name">Full Name</label>
+              <input
+                type="text"
+                placeholder="Enter full name"
+                name="name"
+                onChange={onChangeInput}
+              />
+            </div>
 
-        <div className='row'>
-          <button type='submit'>Register</button>
-          <Link to='/userLogin'>Login</Link>
+            <div className="input-box">
+              <label htmlFor="email">Email</label>
+              <input
+                type="email"
+                placeholder="Enter email"
+                name="email"
+                onChange={onChangeInput}
+              />
+            </div>
 
-        </div>
-      </form>
+            <div className="input-box">
+              <label htmlFor="mobile">Mobile</label>
+              <input
+                type="tel"
+                placeholder="Enter mobile number"
+                name="mobile"
+                onChange={onChangeInput}
+              />
+            </div>
 
+            <div className="input-box">
+              <label htmlFor="grade">Grade</label>
+              <input
+                type="number"
+                placeholder="Enter grade/class"
+                name="grade"
+                onChange={onChangeInput}
+              />
+            </div>
+
+            <div className="input-box">
+              <label htmlFor="password">Password</label>
+              <input
+                type="password"
+                placeholder="Enter password"
+                name="password"
+                onChange={onChangeInput}
+              />
+            </div>
+          </div>
+          <div className="button-container">
+            <button type="submit">Register</button>
+            
+          </div>
+        </form>
+      </div>
     </div>
-  )
-}
+  );
+};
 
 export default UserRegister

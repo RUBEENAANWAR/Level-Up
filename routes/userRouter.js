@@ -1,5 +1,5 @@
 const  router=require('express').Router()
-const userCtrl=require('../controllers/adminCtrl')
+const userCtrl=require('../controllers/userCtrl')
 const userAuth=require('../middlewares/userAuth')
 
 router.post('/userRegister', userCtrl.userRegister)

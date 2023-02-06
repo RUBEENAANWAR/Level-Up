@@ -15,7 +15,7 @@ useEffect(()=>{
                 
                 //console.log(token,"this is token");
                 setIsLogged(true)
-                 res.data.role==="admin" ? setIsAdmin(true) : setIsAdmin(false)
+                 res.data.adminDetails.role==="admin" ? setIsAdmin(true) : setIsAdmin(false)
                 // console.log(res,"data");
                
             } catch(err){

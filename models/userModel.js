@@ -16,7 +16,7 @@ password:{
     required:true
 },
 mobile:{
-    type:Number,
+    type:String,
     default:''
 },
 grade:{
