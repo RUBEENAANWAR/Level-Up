@@ -38,7 +38,8 @@ function UserApproval() {
                 <p>Grade: {users.grade}</p>
                 <p>Email: {users.email}</p>
                 <p>Mobile: {users.mobile}</p>
-                <p>Status:{users.isApproved}</p>
+                
+                <p>Status: {users.isApproved}</p>
 
                 <div className="row_btn">
                   <button style={{ background: "#cf1928" }}>Pending</button>

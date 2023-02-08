@@ -8,7 +8,7 @@ import './header.css'
 //import Stack from '@mui/material'
 
 
-function AdminHeader() {
+function Header() {
     const state = useContext(GlobalState);
     const [isLogged, setIsLogged] = state.adminAPI.isLogged;
     const [isAdmin, setIsAdmin] = state.adminAPI.isAdmin;
@@ -46,5 +46,5 @@ function AdminHeader() {
     );
   }
   
-export default AdminHeader;
+export default Header;
 

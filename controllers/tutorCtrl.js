@@ -75,6 +75,8 @@ const TutorCtrl = {
       if (email === "" || password === "") {
         return res.status(400).json({ msg: "All fields should be filled" });
       }
+      if(tutor.isApproved===false) return res.status(400).json({msg:"waiting for admin approval"})
+
 
       //if login success create access token and refresh token
       const access_token = createAccessToken({ id: tutor._id });
@@ -129,6 +131,17 @@ const TutorCtrl = {
       return res.status(500).json({ msg: err.message });
     }
   },
+
+  getAllTutors:async(req,res)=>{
+    try {
+      const allTutors=await Tutors.find().select("-password")
+      if(!allTutors)
+      return res.status(400).json({msg:"Tutor details cannot be fetched"})
+      res.json(allTutors)
+    } catch (err) {
+      return res.status(500).json({msg: err.message})
+    }
+  }
 };
 
 const createAccessToken = (tutor) => {

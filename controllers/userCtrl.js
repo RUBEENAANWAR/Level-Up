@@ -1,7 +1,6 @@
 const Users = require("../models/userModel");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const Category=require("../models/categoryModel")
 
 const userCtrl = {
   userRegister: async (req, res) => {
@@ -31,10 +30,7 @@ const userCtrl = {
         return res
           .status(400)
           .json({ msg: "Password should be atleast 6 characters long" });
-
-      if (!user.isApproved) {
-        return res.status(404).json({ message: "Approval Pending" });
-          }
+        
 
       //password encryption
       const passwordHash = await bcrypt.hash(password, 12);
@@ -80,8 +76,9 @@ const userCtrl = {
       if (email === "" || password === "") {
         return res.status(400).json({ msg: "All fields should be filled" });
       }
+      if(user.isApproved === false) return res.status(400).json({ msg: "You are not allowed to Login" });
 
-      if(user.isApproved===false) return res.status(400).json({msg:"waiting for admin approval"})
+      console.log("userDetails",res.data.userDetails);
 
       //if login success create access token and refresh token
       const access_token = createAccessToken({ id: user._id });
@@ -100,7 +97,7 @@ const userCtrl = {
   userLogout: async (req, res) => {
     try {
       res.clearCookie("refreshtoken", { path: "/user/refresh_token" });
-      return res.json({ msg: "User Logged out" });
+      return res.json({ msg: "Logged out" });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }
@@ -136,16 +133,23 @@ const userCtrl = {
       return res.status(500).json({ msg: err.message });
     }
   },
-
   getAllUsers:async(req,res)=>{
     try {
       const allUsers=await Users.find().select("-password")
-      if(!allUsers) return res.status(400).json({msg:"User details cannot be fetched"})
+      if(!allUsers) return res.status(400).json({msg:"Users details cannot be fetched"})
       res.json({allUsers})
     } catch (err) {
-      return res.status(500).json({msg:err.message})
+      return res.status(500).json({ msg: err.message });
     }
-  }
+  },
+  // approveUser:async(req,res)=>{
+  //   try{
+    
+  //     await Users.updateOne({})
+  //   }catch(err){
+  //     return res.status(500).json({ msg: err.message });
+  //   }
+  // }
 };
 
 const createAccessToken = (user) => {
