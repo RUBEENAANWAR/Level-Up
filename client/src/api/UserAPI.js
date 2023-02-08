@@ -3,7 +3,7 @@ import axios from 'axios'
 import swal from 'sweetalert2'
 
 function UserAPI(token){
-    const[isLogged,setIsLogged]=useState(false)
+    const[isUserLogged,setIsUserLogged]=useState(false)
     const[isUser,setIsUser]=useState(false)
 
 useEffect(()=>{
@@ -14,7 +14,7 @@ useEffect(()=>{
                 console.log(res,"res");   
                 
                 //console.log(token,"this is token");
-                setIsLogged(true)
+                setIsUserLogged(true)
                  res.data.userDetails.role==="user" ? setIsUser(true) : setIsUser(false)
                 // console.log(res,"data");
                
@@ -27,7 +27,7 @@ useEffect(()=>{
 },[token])
 
 return {
-    isLogged: [isLogged,setIsLogged],
+    isUserLogged: [isUserLogged,setIsUserLogged],
     isUser:[isUser,setIsUser]
 }
 }

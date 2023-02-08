@@ -1,8 +1,9 @@
 import React,{useState} from 'react';
-import {Link} from 'react-router-dom'
+//import {Link} from 'react-router-dom'
 import axios from 'axios';
 import './adminRegister.css';
 import swal from 'sweetalert2';
+
 
 function AdminRegister() {
   const [admin,setAdmin]=useState({
@@ -32,7 +33,7 @@ function AdminRegister() {
   return (
     <div className='register-page'>
       <form onSubmit={registerSubmit}>
-        <h2>Admin Register</h2>
+        <h2 style={{color:"black" ,textAlign:"center"}}>Admin Register</h2>
       <input type="text" name="name" 
         placeholder="Name" value={admin.name} onChange={onChangeInput}/>
         <input type="email" name="email" 
@@ -42,7 +43,7 @@ function AdminRegister() {
 
         <div className='row'>
           <button type='submit'>Register</button>
-          <Link to='/adminLogin'>Login</Link>
+          {/* <Link to='/adminLogin'>Login</Link> */}
 
         </div>
       </form>

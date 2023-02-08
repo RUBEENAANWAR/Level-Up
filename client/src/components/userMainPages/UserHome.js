@@ -14,7 +14,7 @@ import JoinStudents from '../userMainPages/JoinStudents';
 const UserHome = () => {
 
   const state=useContext(GlobalState)
-  const [isLogged,setIsLogged]=state.userAPI.isLogged
+  const [isUserLogged,setIsUserLogged]=state.userAPI.isUserLogged
   const [isUser,setIsUser]=state.userAPI.isUser
   //const [userDetails,setUserDetails]=useState({})
 
@@ -45,7 +45,7 @@ const UserHome = () => {
 
 return(
   <>
-  {isUser && isLogged ? LoggedRouter() : NotFound()}
+  {isUser && isUserLogged ? LoggedRouter() : NotFound()}
   </>
 )
 }

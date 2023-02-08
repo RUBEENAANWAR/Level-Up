@@ -2,7 +2,6 @@ import React from 'react';
 import {BrowserRouter as Router} from 'react-router-dom'
 import { DataProvider } from './GlobalState';
 import Header from './components/headers/AdminHeader';
-import UserHeader from './components/headers/UserHeader';
 import MainPages from './components/adminMainPages/Pages'
 import {Box} from '@mui/material';
 
@@ -15,7 +14,6 @@ function App() {
     <div className="App">
       <Header/>
       <MainPages/>
-      <UserHeader/>
     </div>
     </Router>
     </DataProvider>

@@ -27,6 +27,10 @@ role:{
     type:String,
     default:"user"
 },
+isApproved:{
+    type:Boolean,
+    dafault:false,
+},
 dob:{
     type:String
 },

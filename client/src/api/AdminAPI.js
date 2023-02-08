@@ -26,10 +26,25 @@ useEffect(()=>{
     }
 },[token])
 
+  const userPendingApprovals=async(token)=>{
+    const {data}=await axios.get("/admin/pendingApprovals")
+    if(data.status){
+        return data;
+    }
+   }
+   const userApprove=async (token,consId)=>{
+    const {data}=await axios.get(`/userApprove/${consId}`)
+    if(data.status){
+        return data;
+    }
+   }
+
 return {
     isLogged: [isLogged,setIsLogged],
     isAdmin:[isAdmin,setIsAdmin]
 }
 }
+
+ 
 
 export default AdminAPI

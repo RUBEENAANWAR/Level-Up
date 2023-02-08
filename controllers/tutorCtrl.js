@@ -1,30 +1,29 @@
-const Users = require("../models/userModel");
+const Tutors = require("../models/tutorModel");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const Category=require("../models/categoryModel")
 
-const userCtrl = {
-  userRegister: async (req, res) => {
+const TutorCtrl = {
+  tutorRegister: async (req, res) => {
     try {
-      const { name, email, mobile, grade, password } = req.body;
+      const { name, email, mobile, qualification, password } = req.body;
       if (
         name === "" ||
         email === "" ||
         mobile === "" ||
-        grade === "" ||
+        qualification === "" ||
         password === ""
       ) 
         return res.status(400).json({ msg: "All fields should be filled" });
       
 
-      const user = await Users.findOne({ email });
-      if (user)
+      const tutor = await Tutors.findOne({ email });
+      if (tutor)
         return res.status(400).json({ msg: "This email already exists" });
       if (mobile.length != 10)
         return res
           .status(400)
           .json({ msg: "Mobile  number should have 10 digits" });
-      if (grade === "") {
+      if (qualification === "") {
         return res.status(400).json({ msg: "Enter your grade" });
       }
       if (password.length < 6)
@@ -32,37 +31,33 @@ const userCtrl = {
           .status(400)
           .json({ msg: "Password should be atleast 6 characters long" });
 
-      if (!user.isApproved) {
-        return res.status(404).json({ message: "Approval Pending" });
-          }
-
       //password encryption
       const passwordHash = await bcrypt.hash(password, 12);
-      const newUser = new Users({
+      const newTutor = new Tutors({
         name,
         password: passwordHash,
         email,
-        grade,
+        qualification,
         mobile
       });
-      console.log(newUser);
+      console.log(newTutor);
       //save to mongodb
-      await newUser.save();
+      await newTutor.save();
 
       //Then create jsonwebtoken for authentication
-      const access_token = createAccessToken({ id: newUser._id });
-      const refresh_token = createRefreshToken({ id: newUser._id });
+      const access_token = createAccessToken({ id: newTutor._id });
+      const refresh_token = createRefreshToken({ id: newTutor._id });
       res.cookie("refreshtoken", refresh_token, {
         httpOnly: true,
-        path: "/user/refresh_token",
+        path: "/tutor/refresh_token",
         maxAge: 30 * 24 * 60 * 60 * 1000, //30days
       });
 
       res.json({
-        msg: "Student Registration Successful",
+        msg: "Tutor Registration Successful",
         access_token,
-        user: {
-          ...newUser._doc,
+        tutor: {
+          ...newTutor._doc,
           password: "",
         },
       });
@@ -70,25 +65,23 @@ const userCtrl = {
       return res.status(500).json({ msg: err.message });
     }
   },
-  userLogin: async (req, res) => {
+  tutorLogin: async (req, res) => {
     try {
       const { email, password } = req.body;
-      const user = await Users.findOne({ email });
-      if (!user) return res.status(400).json({ msg: "User doesn't exist" });
-      const isMatch = await bcrypt.compare(password, user.password);
+      const tutor = await Tutors.findOne({ email });
+      if (!tutor) return res.status(400).json({ msg: "User doesn't exist" });
+      const isMatch = await bcrypt.compare(password, tutor.password);
       if (!isMatch) return res.status(400).json({ msg: "Incorrect password" });
       if (email === "" || password === "") {
         return res.status(400).json({ msg: "All fields should be filled" });
       }
 
-      if(user.isApproved===false) return res.status(400).json({msg:"waiting for admin approval"})
-
       //if login success create access token and refresh token
-      const access_token = createAccessToken({ id: user._id });
-      const refresh_token = createRefreshToken({ id: user._id });
+      const access_token = createAccessToken({ id: tutor._id });
+      const refresh_token = createRefreshToken({ id: tutor._id });
       res.cookie("refreshtoken", refresh_token, {
         httpOnly: true,
-        path: "/user/refresh_token",
+        path: "/tutor/refresh_token",
         maxAge: 30 * 24 * 60 * 60 * 1000, //30days
       });
 
@@ -97,10 +90,10 @@ const userCtrl = {
       return res.status(500).json({ msg: err.message });
     }
   },
-  userLogout: async (req, res) => {
+  tutorLogout: async (req, res) => {
     try {
-      res.clearCookie("refreshtoken", { path: "/user/refresh_token" });
-      return res.json({ msg: "User Logged out" });
+      res.clearCookie("refreshtoken", { path: "/tutor/refresh_token" });
+      return res.json({ msg: "Tutor Logged out" });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }
@@ -113,49 +106,39 @@ const userCtrl = {
       jwt.verify(
         rf_token,
         process.env.REFRESH_TOKEN_SECRET,
-        async (err, user) => {
+        async (err, tutor) => {
           if (err)
             return res.status(400).json({ msg: "Please Login or Register" });
-          const userDetails = await Users.findById(user.id).select("-password");
+          const tutorDetails = await Tutors.findById(tutor.id).select("-password");
 
-          const accesstoken = createAccessToken({ id: user._id });
-          res.json({ accesstoken, rf_token, userDetails });
+          const accesstoken = createAccessToken({ id: tutor._id });
+          res.json({ accesstoken, rf_token, tutorDetails });
         }
       );
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }
   },
-  getUser: async (req, res) => {
+  getTutor: async (req, res) => {
     try {
-      const user = await Users.findById(req.user.id).select("-password");
-      if (!user) return res.status(400).json({ msg: "User does not exist" });
+      const tutor = await Tutors.findById(req.tutor.id).select("-password");
+      if (!tutor) return res.status(400).json({ msg: "Tutor does not exist" });
 
-      res.json(user);
+      res.json(tutor);
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }
   },
-
-  getAllUsers:async(req,res)=>{
-    try {
-      const allUsers=await Users.find().select("-password")
-      if(!allUsers) return res.status(400).json({msg:"User details cannot be fetched"})
-      res.json({allUsers})
-    } catch (err) {
-      return res.status(500).json({msg:err.message})
-    }
-  }
 };
 
-const createAccessToken = (user) => {
-  return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "1d" });
+const createAccessToken = (tutor) => {
+  return jwt.sign(tutor, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "1d" });
 };
 
-const createRefreshToken = (user) => {
-  return jwt.sign(user, process.env.REFRESH_TOKEN_SECRET, {
+const createRefreshToken = (tutor) => {
+  return jwt.sign(tutor, process.env.REFRESH_TOKEN_SECRET, {
     expiresIn: "30d",
   });
 };
 
-module.exports = userCtrl;
+module.exports = TutorCtrl;

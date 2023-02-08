@@ -14,7 +14,7 @@ import UserHome from '../userMainPages/UserHome'
 import UserRegister from '../userMainPages/userAuth/UserRegister'
 import UserLogin from '../userMainPages/userAuth/UserLogin'
 import {GlobalState} from '../../GlobalState'
-
+import UserApproval from './adminPages/UserApproval'
 function MainPages() {
   const state=useContext(GlobalState)
   const [isLogged]=state.adminAPI.isLogged
@@ -25,6 +25,8 @@ function MainPages() {
     <Routes>
       {isAdmin}
       <Route path="/adminHome" exact element={isLogged ? <AdminHome/>:<NotFound/>}/>
+      <Route path="/userApprovals" exact element={ <UserApproval/>}/>
+
       <Route path="/adminLogin" exact element={isLogged ? <NotFound/>:<AdminLogin/>}/>
       <Route path="/adminRegister" exact element={isLogged ? <NotFound/>:<AdminRegister/>}/>
       <Route path="/addStudent" exact element={isLogged ? <AddStudent/>:<NotFound/>}/>

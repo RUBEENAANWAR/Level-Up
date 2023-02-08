@@ -8,46 +8,43 @@ import './header.css'
 //import Stack from '@mui/material'
 
 
-const AdminHeader=()=>{
-    const state=useContext(GlobalState)
-    const [isLogged,setIsLogged]=state.adminAPI.isLogged
-    const [isAdmin,setIsAdmin]=state.adminAPI.isAdmin
-
-    const adminLogout= async()=>{
-        await axios.get('/admin/adminLogout')
-        localStorage.clear()
-        setIsAdmin(false)
-        setIsLogged(false)
-
-    }
- 
-    console.log(state);
-    function LoggerRouter(){
-        return(
-            <>
-            {/* <li>ADMIN</li> */}
-            <li><Link to="/adminLogin" onClick={adminLogout}>Logout</Link></li>
-            </>   
-        )
-    }
-
+function AdminHeader() {
+    const state = useContext(GlobalState);
+    const [isLogged, setIsLogged] = state.adminAPI.isLogged;
+    const [isAdmin, setIsAdmin] = state.adminAPI.isAdmin;
+    const logoutAdmin = async () => {
+      await axios.get("/admin/adminLogout");
+      localStorage.clear();
+      setIsAdmin(false);
+      setIsLogged(false);
+    };
     return (
-     <header>
-        <div className="menu"><img src={Menu} alt="" width="20"/>
+      <header className='adminHeader'>
+             <div className="menu">
+          <img src={Menu} alt="" width="25" />
         </div>
         <div className="logo">
-                <Link to="/AdminHome">< img src={Logo} alt="" width="60"/></Link>
+          <Link to="/adminHome">
+            <img src={Logo} alt="" width="70" className="LOGO" />
+          </Link>
         </div>
-
+  
         <ul>
-        {isAdmin}
-        {
-            isLogged ? LoggerRouter():""
-        }  
-        </ul>  
-     </header>  
-    )  
-}
-
+       
+          {isAdmin && isLogged && (
+            <>
+              {/* <li style={{color:"#ffff"}}>ADMIN </li> */}
+              <li style={{ color: "#ffff" }}>
+                <Link to="/adminLogin" onClick={logoutAdmin}>
+                  <button className="logout-button">adminLogout</button>
+                </Link>
+              </li>
+            </>
+          )}
+        </ul>
+      </header>
+    );
+  }
+  
 export default AdminHeader;
 

@@ -58,7 +58,7 @@ function UserLogin() {
             </div>
           </div>
           <div className="button-container">
-            <button type="submit">Register</button>
+            <button type="submit">Login</button>
             
           </div>
         </form>

@@ -1,6 +1,9 @@
 const Admins = require("../models/adminModel");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const Users=require("../models/userModel")
+const Tutors=require("../models/tutorModel")
+const Category=require("../models/categoryModel")
 const adminCtrl = {
   adminRegister: async (req, res) => {
     try {
@@ -113,6 +116,7 @@ const adminCtrl = {
   },
 };
 
+
 const createAccessToken = (admin) => {
   return jwt.sign(admin, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "1d" });
 };
@@ -123,4 +127,6 @@ const createRefreshToken = (admin) => {
   });
 };
 
-module.exports = adminCtrl;
+module.exports = adminCtrl
+
+

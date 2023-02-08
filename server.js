@@ -23,7 +23,7 @@ app.use(fileUpload({
 //Routes
 app.use('/admin',require('./routes/adminRouter'))
 app.use('/user',require('./routes/userRouter'))
-//app.use('/tutor',require('./routes/'))
+app.use('/tutor',require('./routes/tutorRouter'))
 
 //connect to mongodb
 const URI=process.env.MONGODB_URL
