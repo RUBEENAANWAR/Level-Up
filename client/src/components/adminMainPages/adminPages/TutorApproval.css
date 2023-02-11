@@ -67,11 +67,11 @@
     justify-content: space-around;
   }
   
-  .row_btn a{
+  .row_btn button{
     border-style: none;
     padding: 5px 20px 5px 20px;
     border-radius: 5px;
-    color: #f91414;
+    color: #fff;
   
   }
   @media (max-width: 600px) {

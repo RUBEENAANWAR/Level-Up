@@ -18,14 +18,12 @@ function UserLogin() {
     try {
       await axios.post('/user/userLogin',{...user})
       localStorage.setItem('studentLogin',true)
-      window.location.href='/userHome';
+      window.location.href='/studentHome';
 
     } catch (err) {
          swal.fire(err.response.data.msg);
-
          //alert(err.response.data.msg)
-      //console.log(req.cookies);
-      
+      //console.log(req.cookies);  
     }
   }
 
@@ -64,8 +62,7 @@ function UserLogin() {
         </form>
       </div>
     </div>
-  )
-  
+  ) 
 }
 
 export default UserLogin;

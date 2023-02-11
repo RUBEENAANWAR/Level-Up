@@ -18,9 +18,10 @@ export const DataProvider=({children})=>{
        setToken(res.data.accesstoken)
     }
 
+    
     const tutorRefreshToken=async ()=>{
         const res =await axios.get('/tutor/refresh_token')
-        setToken(res.data.accesstoken)
+       setToken(res.data.accesstoken)
     }
 
     useEffect(()=>{
@@ -28,10 +29,9 @@ export const DataProvider=({children})=>{
         const studentLogin=localStorage.getItem('studentLogin')
         const tutorLogin=localStorage.getItem('tutorLogin')
 
-        if(firstLogin) refreshToken()
-    
-        if(studentLogin) userRefreshToken()
 
+        if(firstLogin) refreshToken()
+        if(studentLogin) userRefreshToken()
         if(tutorLogin) tutorRefreshToken()
     },[])
 
@@ -39,8 +39,7 @@ export const DataProvider=({children})=>{
         token:[token,setToken],
         adminAPI:AdminAPI(token),
         userAPI:UserAPI(token),
-        tutorAPI:TutorAPI(token),
-        //userPendingApprovals:
+        tutorAPI:TutorAPI(token)
     }
     return(
         

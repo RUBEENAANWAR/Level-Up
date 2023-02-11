@@ -2,8 +2,11 @@ import React from 'react';
 import {BrowserRouter as Router} from 'react-router-dom'
 import { DataProvider } from './GlobalState';
 import Header from './components/headers/Header';
+//import UserHeader from './components/headers/userHeader';
 import MainPages from './components/adminMainPages/Pages'
 import {Box} from '@mui/material';
+// import UserHome from './components/userMainPages/UserHome';
+
 
 
 function App() {
@@ -14,6 +17,8 @@ function App() {
     <div className="App">
       <Header/>
       <MainPages/>
+       {/* <UserHome/>  */}
+      
     </div>
     </Router>
     </DataProvider>

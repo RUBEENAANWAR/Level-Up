@@ -2,19 +2,19 @@ const Tutors = require("../models/tutorModel");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-const TutorCtrl = {
+const tutorCtrl = {
   tutorRegister: async (req, res) => {
     try {
-      const { name, email, mobile, qualification, password } = req.body;
+      const { tutorId, name, email, mobile, qualification, password } = req.body;
       if (
+        tutorId === "" ||
         name === "" ||
         email === "" ||
         mobile === "" ||
         qualification === "" ||
         password === ""
-      ) 
+      )
         return res.status(400).json({ msg: "All fields should be filled" });
-      
 
       const tutor = await Tutors.findOne({ email });
       if (tutor)
@@ -24,7 +24,7 @@ const TutorCtrl = {
           .status(400)
           .json({ msg: "Mobile  number should have 10 digits" });
       if (qualification === "") {
-        return res.status(400).json({ msg: "Enter your grade" });
+        return res.status(400).json({ msg: "Enter your quaification" });
       }
       if (password.length < 6)
         return res
@@ -34,11 +34,12 @@ const TutorCtrl = {
       //password encryption
       const passwordHash = await bcrypt.hash(password, 12);
       const newTutor = new Tutors({
+        tutorId,
         name,
         password: passwordHash,
         email,
         qualification,
-        mobile
+        mobile,
       });
       console.log(newTutor);
       //save to mongodb
@@ -54,9 +55,9 @@ const TutorCtrl = {
       });
 
       res.json({
-        msg: "Tutor Registration Successful",
+        msg: "tutor Registration Successful",
         access_token,
-        tutor: {
+        user: {
           ...newTutor._doc,
           password: "",
         },
@@ -69,14 +70,14 @@ const TutorCtrl = {
     try {
       const { email, password } = req.body;
       const tutor = await Tutors.findOne({ email });
-      if (!tutor) return res.status(400).json({ msg: "User doesn't exist" });
+      if (!tutor) return res.status(400).json({ msg: "Tutor doesn't exist" });
       const isMatch = await bcrypt.compare(password, tutor.password);
       if (!isMatch) return res.status(400).json({ msg: "Incorrect password" });
       if (email === "" || password === "") {
         return res.status(400).json({ msg: "All fields should be filled" });
       }
-      if(tutor.isApproved===false) return res.status(400).json({msg:"waiting for admin approval"})
-
+      if (tutor.isApproved === "false")
+        return res.status(400).json({ msg: "Waiting for admin approval" });
 
       //if login success create access token and refresh token
       const access_token = createAccessToken({ id: tutor._id });
@@ -95,7 +96,7 @@ const TutorCtrl = {
   tutorLogout: async (req, res) => {
     try {
       res.clearCookie("refreshtoken", { path: "/tutor/refresh_token" });
-      return res.json({ msg: "Tutor Logged out" });
+      return res.json({ msg: "Logged out" });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }
@@ -123,7 +124,7 @@ const TutorCtrl = {
   },
   getTutor: async (req, res) => {
     try {
-      const tutor = await Tutors.findById(req.tutor.id).select("-password");
+      const user = await Tutors.findById(req.tutor.id).select("-password");
       if (!tutor) return res.status(400).json({ msg: "Tutor does not exist" });
 
       res.json(tutor);
@@ -131,17 +132,51 @@ const TutorCtrl = {
       return res.status(500).json({ msg: err.message });
     }
   },
-
-  getAllTutors:async(req,res)=>{
+  getAllTutors: async (req, res) => {
     try {
-      const allTutors=await Tutors.find().select("-password")
-      if(!allTutors)
-      return res.status(400).json({msg:"Tutor details cannot be fetched"})
-      res.json(allTutors)
+      const allTutors = await Users.find().select("-password");
+      if (!allTutors)
+        return res.status(400).json({ msg: "Tutor details cannot be fetched" });
+      res.json({ allTutors });
     } catch (err) {
-      return res.status(500).json({msg: err.message})
+      return res.status(500).json({ msg: err.message });
     }
-  }
+    // console.log("getAllusers",allUserDetails);
+  },
+
+  userApprovals: async (req, res) => {
+    try {
+      const { isApproved } = req.body;
+      await Tutors.findOneAndUpdate(
+        { tutorId: req.params.tutorId },
+        {
+          isApproved,
+        }
+      );
+      res.json({ msg: "Tutor Approved" });
+    } catch (err) {
+      res.status(500).json({ msg: err.message });
+    }
+  },
+  adminTutorUpdate: async (req, res) => {
+    try {
+      const { name, email, qualification, mobile, isApproved } = req.body;
+
+      await Tutors.findOneAndUpdate(
+        { tutorId: req.params.tutorId },
+        {
+          name,
+          email,
+          qualification,
+          mobile,
+          isApproved,
+        }
+      );
+      res.json({ msg: "Tutor updated" });
+    } catch (err) {
+      res.status(500).json({ msg: err.message });
+    }
+  },
 };
 
 const createAccessToken = (tutor) => {
@@ -154,4 +189,4 @@ const createRefreshToken = (tutor) => {
   });
 };
 
-module.exports = TutorCtrl;
+module.exports = tutorCtrl;

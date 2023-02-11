@@ -22,7 +22,7 @@
   .student_card{
     max-width: 250px;
     overflow: hidden;
-    height: 600px;
+    height: 450px;
     padding: 15px;
     box-shadow: 0 0 15px #ddd;
     margin:60px 0 ;
@@ -67,11 +67,11 @@
     justify-content: space-around;
   }
   
-  .row_btn a{
+  .row_btn button{
     border-style: none;
     padding: 5px 20px 5px 20px;
     border-radius: 5px;
-    color: #f91414;
+    color: #fff;
   
   }
   @media (max-width: 600px) {

@@ -5,16 +5,16 @@ const jwt = require("jsonwebtoken");
 const userCtrl = {
   userRegister: async (req, res) => {
     try {
-      const { name, email, mobile, grade, password } = req.body;
+      const { studentId, name, email, mobile, grade, password } = req.body;
       if (
+        studentId === "" ||
         name === "" ||
         email === "" ||
         mobile === "" ||
         grade === "" ||
         password === ""
-      ) 
+      )
         return res.status(400).json({ msg: "All fields should be filled" });
-      
 
       const user = await Users.findOne({ email });
       if (user)
@@ -30,16 +30,16 @@ const userCtrl = {
         return res
           .status(400)
           .json({ msg: "Password should be atleast 6 characters long" });
-        
 
       //password encryption
       const passwordHash = await bcrypt.hash(password, 12);
       const newUser = new Users({
+        studentId,
         name,
         password: passwordHash,
         email,
         grade,
-        mobile
+        mobile,
       });
       console.log(newUser);
       //save to mongodb
@@ -76,9 +76,8 @@ const userCtrl = {
       if (email === "" || password === "") {
         return res.status(400).json({ msg: "All fields should be filled" });
       }
-      if(user.isApproved === false) return res.status(400).json({ msg: "You are not allowed to Login" });
-
-      console.log("userDetails",res.data.userDetails);
+      if (user.isApproved === "false")
+        return res.status(400).json({ msg: "Waiting for admin approval" });
 
       //if login success create access token and refresh token
       const access_token = createAccessToken({ id: user._id });
@@ -133,23 +132,51 @@ const userCtrl = {
       return res.status(500).json({ msg: err.message });
     }
   },
-  getAllUsers:async(req,res)=>{
+  getAllUsers: async (req, res) => {
     try {
-      const allUsers=await Users.find().select("-password")
-      if(!allUsers) return res.status(400).json({msg:"Users details cannot be fetched"})
-      res.json({allUsers})
+      const allUsers = await Users.find().select("-password");
+      if (!allUsers)
+        return res.status(400).json({ msg: "Users details cannot be fetched" });
+      res.json({ allUsers });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }
+    // console.log("getAllusers",allUserDetails);
   },
-  // approveUser:async(req,res)=>{
-  //   try{
-    
-  //     await Users.updateOne({})
-  //   }catch(err){
-  //     return res.status(500).json({ msg: err.message });
-  //   }
-  // }
+
+  userApprovals: async (req, res) => {
+    try {
+      const { isApproved } = req.body;
+      await Users.findOneAndUpdate(
+        { studentId: req.params.studentId },
+        {
+          isApproved,
+        }
+      );
+      res.json({ msg: "Student Approved" });
+    } catch (err) {
+      res.status(500).json({ msg: err.message });
+    }
+  },
+  adminUserUpdate: async (req, res) => {
+    try {
+      const { name, email, grade, mobile, isApproved } = req.body;
+
+      await Users.findOneAndUpdate(
+        { studentId: req.params.studentId },
+        {
+          name,
+          email,
+          grade,
+          mobile,
+          isApproved,
+        }
+      );
+      res.json({ msg: "Student updated" });
+    } catch (err) {
+      res.status(500).json({ msg: err.message });
+    }
+  },
 };
 
 const createAccessToken = (user) => {

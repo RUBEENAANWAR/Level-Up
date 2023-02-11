@@ -1,0 +1,84 @@
+.main{
+    background: #2F2F2F;
+    margin-left: 200px;
+    margin-right: 25px;
+    margin-top: 30px;
+    padding-top: 30px;
+    padding-bottom: 50px;
+  }
+  .label-text{
+    color: aliceblue;
+    text-decoration: wavy;
+  }
+  .profile-container {
+    text-align: center;
+  }
+  
+  .profile-container img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    display: block;
+    margin: 0 auto;
+  }
+  
+  .profile-container h1 {
+    font-size: 36px;
+    margin-top: 20px;
+    color: #fff;
+  }
+  
+  .profile-container p {
+    font-size: 18px;
+    margin-top: 10px;
+    color: rgb(175, 175, 170);
+  }
+  .profile-container h3{
+    color: rgb(255, 255, 255);
+    
+  }
+  
+  .Button-style{
+    background:rgb(180, 119, 33) ;
+    border-style: none;
+    border-radius: 2px;
+    padding: 4px;
+    padding-right: 15px;
+    padding-left: 15px;
+    position:absolute;
+    top:9.5rem;
+    right:5rem;
+  }
+  
+  .Button-style:hover{
+    background:rgb(123, 219, 83) ;
+    border-radius: 4px;
+  }
+  @media only screen and (max-width: 600px) {
+    .profile-container img {
+      width: 150px;
+      height: 150px;
+    }
+    .Button-style{
+      margin-top:5px ;
+      padding: 2px;
+      padding-right: 10px;
+      padding-left: 10px;
+      position:absolute;
+      top:7rem;
+      right:8rem;
+    }
+    .main{
+      margin-left: 100px;
+      margin-right: 120px;
+      margin-top: 30px;
+      padding-top: 30px;
+      padding-bottom: 50px;
+    }
+    .profile-container h1 {
+      font-size: 30px;
+    }
+    .profile-container p {
+      font-size: 16px;
+    }
+  }

@@ -3,6 +3,7 @@ import axios from 'axios'
 import './adminLogin.css';
 import swal from 'sweetalert2';
 
+
 function AdminLogin() {
   const [admin,setAdmin]=useState({
     email:"",password:""
@@ -32,7 +33,7 @@ function AdminLogin() {
   return (
     <div className='login-page'>
       <form onSubmit={loginSubmit}>
-        <h2 style={{color:"black" ,textAlign:"center"}}>Admin Login</h2>
+        <h2>Admin Login</h2>
         <input type="email" name="email"
         placeholder="Email" value={admin.email} onChange={onChangeInput}/>
         

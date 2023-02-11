@@ -3,7 +3,7 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-image: linear-gradient(#070107, #0cbaba);
+    background-image: linear-gradient(#475c89, #785928);
   }
   
   .Container {
@@ -12,7 +12,7 @@
     margin: 0 28px;
     border-radius: 10px;
     overflow: hidden;
-    background: rgba(43, 42, 42, 0.2);
+    background: rgba(237, 226, 226, 0.2);
     box-shadow: 0 15px 20px rgba(5, 5, 5, 0.6);
   }
   
@@ -67,13 +67,13 @@
       color: #fff;
       border: none;
       border-radius: 5px;
-      background-image: linear-gradient(#aa076b,#61045f);
+      background-image: linear-gradient(#07f91b,#2a3d53);
       cursor: pointer;
       transition: 0.3s;
   }
   
   .button-container button:hover{
-      background-image: linear-gradient(#61045f,#aa076b);
+      background-image: linear-gradient(#353478,#ec43ab);
   }
   
   

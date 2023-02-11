@@ -1,8 +1,8 @@
-import React,{useState,useContext,useEffect} from 'react'
+import React,{useContext} from 'react'
 import {GlobalState} from '../../GlobalState' 
-import axios from 'axios'
+//import axios from 'axios'
 import NotFound from '../adminMainPages/utils/not_found/NotFound'
-import swal from 'sweetalert2'
+//import swal from 'sweetalert2'
 // import {Link} from 'react-router-dom';
 import { Box } from '@mui/material';
 import Banner from '../userMainPages/Banner'
@@ -13,12 +13,13 @@ import JoinStudents from '../userMainPages/JoinStudents';
 
 const UserHome = () => {
 
-  const state=useContext(GlobalState)
-  const [isUserLogged,setIsUserLogged]=state.userAPI.isUserLogged
-  const [isUser,setIsUser]=state.userAPI.isUser
+  //const state=useContext(GlobalState)
+
+ // const [isLogged,setIsLogged]=state.userAPI.isLogged
+ // const [isUser,setIsUser]=state.userAPI.isUser
   //const [userDetails,setUserDetails]=useState({})
 
-  function LoggedRouter(){
+  // function LoggedRouter(){
     // const GetUser=async()=>{
     //   try{
     //     const res=await axios.get('/user/refresh_token')
@@ -36,17 +37,17 @@ const UserHome = () => {
   return (
     <Box>
         <Banner/>
+        <JoinTeam/> 
         <Courses/>
-        <JoinStudents/>
-        <JoinTeam/>   
+        <JoinStudents/>  
     </Box>
   )
 }
 
-return(
-  <>
-  {isUser && isUserLogged ? LoggedRouter() : NotFound()}
-  </>
-)
-}
+// return(
+//   <>
+//   {isUser && isLogged ? LoggedRouter() : NotFound()}
+//   </>
+// )
+
 export default UserHome

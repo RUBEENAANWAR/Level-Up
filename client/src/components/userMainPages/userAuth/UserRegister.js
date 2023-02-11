@@ -1,12 +1,12 @@
 import React,{useState} from 'react';
-import {Link} from 'react-router-dom'
+//import {Link} from 'react-router-dom'
 import axios from 'axios';
 import './userRegister.css';
 import swal from 'sweetalert2';
 
 function UserRegister() {
   const [user,setUser]=useState({
-    name:"", email:"",password:""
+    studentId:"", name:"", email:"",password:"",grade:"",mobile:""
   })
 
   const onChangeInput=e=>{
@@ -19,7 +19,7 @@ function UserRegister() {
     try {
       await axios.post('user/userRegister',{...user})
       localStorage.setItem('studentLogin',true)
-      window.location.href='/userHome';
+      window.location.href='/userLogin';
 
     } catch (err) {
       swal.fire({
@@ -39,6 +39,15 @@ function UserRegister() {
         <form onSubmit={registerSubmit}>
           <h2>Student Registration</h2>
           <div className="content">
+          <div className="input-box">
+              <label htmlFor="studentId">Student Id</label>
+              <input
+                type="text"
+                placeholder="Student Id"
+                name="studentId"
+                onChange={onChangeInput}
+              />
+            </div>
             <div className="input-box">
               <label htmlFor="name">Full Name</label>
               <input

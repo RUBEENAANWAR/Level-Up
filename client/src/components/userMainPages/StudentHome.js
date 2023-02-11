@@ -1,15 +1,25 @@
 import React from "react";
-import "./adminHome.css";
+import "./StudentHome.css";
 //import { Link } from "react-router-dom";
 import {Box,Link,Grid} from '@mui/material'
+import studentImage from '../headers/icon/student.jpg' 
 
 
-const AdminHome = () => {
+const StudentHome = () => {
   return (
-    // <div className="adminhome" style={{backgroundColor:"#2F2F2F"}}>
-    <Grid container my={2} spacing={10} marginLeft={'3rem'} marginRight={'3rem'} marginBottom={'3rem'} backgroundColor={'#2F2F2F'}>
+    <div
+      style={{
+        backgroundImage: `url('studentImage')`,
+        backgroundSize: 'cover',
+        height: '100vh',
+      }}
+    >
+      {/* Your content here */}
+  
+    // <div className="adminhome">
+    <Grid container my={2} spacing={10} marginLeft={'3rem'} marginRight={'3rem'} marginBottom={'3rem'} >
       <Grid item xs={12} sm={6}>
-      <Link href="/addTutor" style={{ textDecoration: "none" }}>
+      <Link href="/subjectsSelected" style={{ textDecoration: "none" }}>
         <Box sx={{
         backgroundColor:'#D96846',
         color:'white',
@@ -21,10 +31,10 @@ const AdminHome = () => {
         cursor:'pointer',
         '&:hover':{
           backgroundColor:'#596235',
-        }}}>ADD A TUTOR</Box></Link>
+        }}}>SUBJECTS SELECTED</Box></Link>
       </Grid>
       <Grid item xs={12} sm={6}>
-      <Link href="/addStudent" style={{ textDecoration: "none" }}>
+      <Link href="/userAttendance" style={{ textDecoration: "none" }}>
         <Box sx={{
         backgroundColor:'#D96846',
         color:'white',
@@ -36,10 +46,10 @@ const AdminHome = () => {
         cursor:'pointer',
         '&:hover':{
           backgroundColor:'#596235',
-        }}}>ADD A STUDENT</Box></Link>
+        }}}>ATTENDANCE</Box></Link>
       </Grid>
       <Grid item xs={12} sm={6}>
-      <Link href="/userApprovals" style={{ textDecoration: "none" }}>
+      <Link href="/selectedTutors" style={{ textDecoration: "none" }}>
       <Box sx={{
         backgroundColor:'#D96846',
         color:'white',
@@ -51,11 +61,11 @@ const AdminHome = () => {
         textAlign:'center',
         '&:hover':{
           backgroundColor:'#596235',
-        }}}>USER APPROVE</Box></Link>
+        }}}>SELECTED TUTORS</Box></Link>
 
       </Grid>
       <Grid item xs={12} sm={6}>
-      <Link href="/tutorApprovals" style={{ textDecoration: "none" }}>
+      <Link href="/userAssignment" style={{ textDecoration: "none" }}>
       <Box sx={{
         backgroundColor:'#D96846',
         color:'white',
@@ -67,10 +77,10 @@ const AdminHome = () => {
         textAlign:'center',
         '&:hover':{
           backgroundColor:'#596235',
-        }}}>TUTOR APPROVAL</Box></Link>
+        }}}>ASSIGNMENT</Box></Link>
       </Grid>
       <Grid item xs={12} sm={6}>
-      <Link href="/adminStudent" style={{ textDecoration: "none" }}>
+      <Link href="/userProgressReport" style={{ textDecoration: "none" }}>
       <Box sx={{
         backgroundColor:'#D96846',
         color:'white',
@@ -82,10 +92,10 @@ const AdminHome = () => {
         textAlign:'center',
         '&:hover':{
           backgroundColor:'#596235',
-        }}}>STUDENTS</Box></Link>
+        }}}>PROGRESS REPORT</Box></Link>
       </Grid>
       <Grid item xs={12} sm={6}>
-      <Link href="/adminTutor" style={{ textDecoration: "none" }}>
+      <Link href="/joinTheClass" style={{ textDecoration: "none" }}>
       <Box sx={{
         backgroundColor:'#D96846',
         color:'white',
@@ -97,10 +107,10 @@ const AdminHome = () => {
         textAlign:'center',
         '&:hover':{
           backgroundColor:'#596235',
-        }}}>TUTORS</Box></Link>
+        }}}>CLICK TO JOIN IN THE CLASS</Box></Link>
       </Grid>
       <Grid item xs={12} sm={6}>
-      <Link href="/adminProfile" style={{ textDecoration: "none" }}>
+      <Link href="/userProfile" style={{ textDecoration: "none" }}>
       <Box sx={{
         backgroundColor:'#D96846',
         color:'white',
@@ -114,24 +124,10 @@ const AdminHome = () => {
           backgroundColor:'#596235',
         }}}>PROFILE</Box></Link>
       </Grid>
-      <Grid item xs={12} sm={6}>
-      <Link href="/adminPayment" style={{ textDecoration: "none" }}>
-      <Box sx={{
-        backgroundColor:'#D96846',
-        color:'white',
-        borderRadius:'2rem',
-        height:'8rem',
-        width:'20rem',
-        cursor:'pointer',
-        padding:'3rem',
-        textAlign:'center',
-        '&:hover':{
-          backgroundColor:'#596235',
-        }}}>PAYMENT</Box></Link>
-      </Grid>
     </Grid>
-    // </div>
+     </div>
+    </div>
   )
 }
 
-export default AdminHome;
+export default StudentHome;

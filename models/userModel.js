@@ -1,6 +1,13 @@
 const mongoose=require('mongoose')
 
 const userSchema=new mongoose.Schema({
+
+studentId:{
+    type:String,
+    unique:true,
+    trim:true,
+    required:true
+},  
 name:{
     type:String,
     required:true,
@@ -27,12 +34,13 @@ role:{
     type:String,
     default:"user"
 },
-isApproved:{
-    type:String,
-    dafault:"false",
-},
 dob:{
     type:String
+},
+
+isApproved:{
+    type:String,
+    default:"false"
 },
 avatar:{
     type:String,

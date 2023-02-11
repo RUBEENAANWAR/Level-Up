@@ -21,7 +21,7 @@ app.use(fileUpload({
 }))
 
 //Routes
-app.use('/admin',require('./routes/adminRouter'))
+//app.use('/admin',require('./routes/adminRouter'))
 app.use('/user',require('./routes/userRouter'))
 app.use('/tutor',require('./routes/tutorRouter'))
 

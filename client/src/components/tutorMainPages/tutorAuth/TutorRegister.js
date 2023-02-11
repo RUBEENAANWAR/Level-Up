@@ -1,12 +1,12 @@
 import React,{useState} from 'react';
-import {Link} from 'react-router-dom'
+//import {Link} from 'react-router-dom'
 import axios from 'axios';
-import './tutorRegister.css';
+import './TutorRegister.css';
 import swal from 'sweetalert2';
 
 function TutorRegister() {
   const [tutor,setTutor]=useState({
-    name:"", email:"",password:"",mobile:"",qualification:""
+    tutorId:"", name:"", email:"",password:"",qualification:"",mobile:""
   })
 
   const onChangeInput=e=>{
@@ -19,7 +19,7 @@ function TutorRegister() {
     try {
       await axios.post('tutor/tutorRegister',{...tutor})
       localStorage.setItem('tutorLogin',true)
-      window.location.href='/tutorHome';
+      window.location.href='/tutorLogin';
 
     } catch (err) {
       swal.fire({
@@ -39,6 +39,15 @@ function TutorRegister() {
         <form onSubmit={registerSubmit}>
           <h2>Tutor Registration</h2>
           <div className="content">
+          <div className="input-box">
+              <label htmlFor="tutorId">Tutor Id</label>
+              <input
+                type="text"
+                placeholder="Tutor Id"
+                name="tutorId"
+                onChange={onChangeInput}
+              />
+            </div>
             <div className="input-box">
               <label htmlFor="name">Full Name</label>
               <input
@@ -62,7 +71,7 @@ function TutorRegister() {
             <div className="input-box">
               <label htmlFor="mobile">Mobile</label>
               <input
-                type="mobile"
+                type="tel"
                 placeholder="Enter mobile number"
                 name="mobile"
                 onChange={onChangeInput}
@@ -70,11 +79,11 @@ function TutorRegister() {
             </div>
 
             <div className="input-box">
-              <label htmlFor="grade">Qualification</label>
+              <label htmlFor="name">Qualification</label>
               <input
                 type="text"
-                placeholder="Enter your qualification"
-                name="qualification"
+                placeholder="Enter Qualification"
+                name="Qualification"
                 onChange={onChangeInput}
               />
             </div>

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
-import "./UserApproval.css"
+import "./StudentDetails.css"
 //import DataTable from 'react-data-table-component';
 
-function UserApproval() {
+function StudentDetails() {
   const [allUsers, setAllUsers] = useState([]);
 
   const getAllUsers = async () => {
@@ -39,12 +39,10 @@ function UserApproval() {
                 <p>Grade: {users.grade}</p>
                 <p>Email: {users.email}</p>
                 <p>Mobile: {users.mobile}</p>
-                <p>Status:{users.isApproved.toString()}</p>
 
                 <div className="row_btn">
-                <a href={`/adminEditUser/${users.studentId}`} style={{color:"blue"}}>EDIT</a>
+                  <button style={{ background: "#cf1928" }} >Edit</button>
                   
-
                 </div>
               </div>
             </div>
@@ -55,4 +53,4 @@ function UserApproval() {
   );
 }
 
-export default UserApproval;
+export default StudentDetails;

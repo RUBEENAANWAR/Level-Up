@@ -1,41 +1,26 @@
-function UserHeader() {
-    const state = useContext(GlobalState);
-    const [isUserLogged, setIsUserLogged] = state.studentAPI.isStdLogged;
-    const [isUser, setIsUser] = state.userAPI.isUser;
+import React from 'react'
+import {Link} from 'react-router-dom';
+import { Stack } from '@mui/material';
+import Logo from '../headers/icon/logo.png'
 
-    const userLogout = async () => {
-      await axios.get("/user/userLogout");
-      localStorage.clear();
-      setIsUser(false);
-      setIsUserLogged(false);
-    };
-    return (
-      <header className='stdHeader'>
-             <div className="stdmenu">
-          <img src={Menu} width="25" />
-        </div>
-        <div className="stdlogo">
-        <Link to="/studentHome">
-            <p>Profile</p>
-          </Link>
-          <Link to="/studentHome">
-            <img src={Logo} width="70" className="stdLOGO" />
-          </Link>
-        </div>
-  
-        <ul className='stdul'>
-       
-          {isUser && isUserLogged && (
-            <>
-              {/* <li style={{color:"#ffff"}}>ADMIN </li> */}
-              <li style={{ color: "#ffff" }}>
-                <Link to="/userLogin" onClick={userLogout}>
-                  <button className="stdlogout-button">Logout</button>
-                </Link>
-              </li>
-            </>
-          )}
-        </ul>
-      </header>
-    );
-  }
+function UserHeader() {
+  return (
+    <>
+    <Stack direction="row" justifyContent="space-around" sx={{gap:{sm:'122px',xs:"40px"}, mt:{sm:'32px',xs:'20px'}}}>
+        <Link to='/userHome'>
+        <img src={Logo} alt="" style={{
+        width:'60px', height:'48px', margin:'10px 20px'}}/>
+        </Link>  
+    </Stack>
+
+    <Stack direction="row"
+    gap="40px" fontSize="24px" alignItems="flex-end">
+        <Link to="/" style={{textDecoration:'none',color:"#3A1212",borderBottom:'3px solid #FF2625'}}>
+        </Link>
+    </Stack>
+</> 
+    
+  )
+}
+
+export default UserHeader

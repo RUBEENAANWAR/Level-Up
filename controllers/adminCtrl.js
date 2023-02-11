@@ -1,9 +1,6 @@
 const Admins = require("../models/adminModel");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const Users=require("../models/userModel")
-const Tutors=require("../models/tutorModel")
-const Category=require("../models/categoryModel")
 const adminCtrl = {
   adminRegister: async (req, res) => {
     try {
@@ -114,6 +111,15 @@ const adminCtrl = {
       return res.status(500).json({ msg: err.message });
     }
   },
+
+//   approveUser:async(req,res)=>{
+//     try{
+//         userId=req.params.id
+//         const approveUser=await Users.updateOne({_id:userId},{$set:{isApproved:true}})
+//     }catch(err){
+//       return res.status(500).json({ msg: err.message });
+//     }
+//   }
 };
 
 
@@ -127,6 +133,4 @@ const createRefreshToken = (admin) => {
   });
 };
 
-module.exports = adminCtrl
-
-
+module.exports = adminCtrl;

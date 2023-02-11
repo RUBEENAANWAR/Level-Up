@@ -3,7 +3,7 @@ import { GlobalState } from "../../../GlobalState";
 import axios from "axios";
 import NotFound from "../utils/not_found/NotFound";
 import swal from "sweetalert2";
-import ProfPic from "../../headers/icon/profpic.png";
+//import ProfPic from "../../headers/icon/profpic.png";
 import "./adminprof.css";
 
 const AdminProfile = () => {
@@ -43,15 +43,14 @@ const AdminProfile = () => {
             <p>{adminDetails.mobile}</p>
           </div>
         </div>
-        <button className="Button-style">Change Profile Pic</button>
+        {/* <button className="Button-style">Change Profile Pic</button> */}
       </div>
     );
   }
 
   return (
     <>
-      {isAdmin}
-      {isLogged ? LoggedRouter() : NotFound()}
+      {isAdmin && isLogged ? LoggedRouter() : NotFound()}
     </>
   );
 };

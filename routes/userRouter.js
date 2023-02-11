@@ -8,5 +8,4 @@ router.get('/userLogout',userCtrl.userLogout)
 
 router.get('/refresh_token',userCtrl.refreshToken)
 router.get('/userInfor',userAuth, userCtrl.getUser)
-router.get('/getAllUsers',userCtrl.getAllUsers)
 module.exports=router

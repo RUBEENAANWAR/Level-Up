@@ -5,6 +5,10 @@
     padding: 20px;
     margin: 55px auto;
 }
+
+.register-page h2{
+    color:black
+}
 .heading{
     color:#fff;
     letter-spacing: 2px;
