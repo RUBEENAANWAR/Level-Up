@@ -10,7 +10,7 @@ function StudentDetails() {
   const getAllUsers = async () => {
     try {
       const res = await axios.get("/admin/allUserDetails");
-      console.log("allUsesr", res.data.allUsers);
+      console.log("allUsers", res.data.allUsers);
       setAllUsers(res.data.allUsers);
     } catch (err) {
       Swal.fire({

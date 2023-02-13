@@ -11,15 +11,14 @@ const initialState = {
   email: "",
   mobile: "",
   grade: "",
-  isApproved:""
-  
+  isApproved:""  
 };
 
 function AdminEditUser() {
-//   const state=useContext(GlobalState)
-//   // console.log("globalstate",state);
-// const [isLogged,setIsLogged]=state.adminAPI.isLogged
-// const [isAdmin,setIsAdmin]=state.adminAPI.isAdmin
+  const state=useContext(GlobalState)
+console.log("globalstate",state);
+const [isLogged,setIsLogged]=state.adminAPI.isLogged
+const [isAdmin,setIsAdmin]=state.adminAPI.isAdmin
   const [user, setUser] = useState(initialState);
 const navigate=useNavigate()
 const params=useParams()
@@ -27,17 +26,14 @@ const params=useParams()
 let someFunc=async()=>{
   if(params.id){
         let users= await axios.get("/admin/allUserDetails")
-        console.log("user.data",users.data);
-        users.data.allUserDetails.map((usr) =>{
+        users.data.allUsers.map(usr =>{
           if(usr.studentId === params.id ){
-            console.log("usr",usr);
           setUser(usr)}
         })
       }else{
         setUser(initialState)
       }
 }
-
 useEffect(()=>{
  someFunc()
 },[])
@@ -45,6 +41,7 @@ useEffect(()=>{
   const handleChangeInput = (e) => {
     const { name, value } = e.target;
     setUser({ ...user, [name]: value });
+    //setState(selectedField:"")
   };
   const handleSubmit=async(e)=>{
     e.preventDefault()
@@ -60,10 +57,16 @@ useEffect(()=>{
     }
   }
   return (
+  
     <div style={{ marginLeft: "225px" }} className="edit_std">
+
       <h3 style={{color:"black"}}>EDIT STUDENT</h3>
       <form onSubmit={handleSubmit}>
-     
+      <div className="row">
+      <label htmlFor="image">Upload Image</label>
+          <input type="file" name="myFile" id="myFile" onChange={handleChangeInput} />
+          <input type="submit" value="upload"/>
+        </div>
         <div className="row">
           <label htmlFor="name">Name</label>
           <input type="text" name="name" id="name" onChange={handleChangeInput} />
@@ -91,8 +94,7 @@ useEffect(()=>{
         <div className="row">
         <select>
        <option value="true">True</option>
-      <option value="false">False</option>
-      
+      <option value="false">False</option> 
       </select>
           <input type="text" name="address" id="status" onChange={handleChangeInput}/>
         </div>

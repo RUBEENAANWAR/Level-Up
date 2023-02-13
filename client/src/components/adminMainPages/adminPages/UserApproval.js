@@ -10,7 +10,7 @@ function UserApproval() {
   const getAllUsers = async () => {
     try {
       const res = await axios.get("/admin/allUserDetails");
-      console.log("allUsesr", res.data.allUsers);
+      console.log("allUsers", res.data.allUsers);
       setAllUsers(res.data.allUsers);
     } catch (err) {
       Swal.fire({
@@ -27,22 +27,22 @@ function UserApproval() {
     <div style={{ marginLeft: "250px" }}>
 
       <div className="students">
-        {allUsers.map((users) => {
+        {allUsers.map((user) => {
           return (
-            <div className="student_card" key={users._id}>
-              <img src={users.avatar} alt="" />
+            <div className="student_card" key={user._id}>
+              <img src={user.avatar} alt="" />
               <div className="student_box">
-                <h2 title={users.name} style={{ color: "black" }}>
-                  {users.name}
+                <h2 title={user.name} style={{ color: "black" }}>
+                  {user.name}
                 </h2>
-                <p>Id: {users.studentId}</p>
-                <p>Grade: {users.grade}</p>
-                <p>Email: {users.email}</p>
-                <p>Mobile: {users.mobile}</p>
-                <p>Status:{users.isApproved.toString()}</p>
+                <p>Id: {user.studentId}</p>
+                <p>Grade: {user.grade}</p>
+                <p>Email: {user.email}</p>
+                <p>Mobile: {user.mobile}</p>
+                <p>Status:{user.isApproved.toString()}</p>
 
                 <div className="row_btn">
-                <a href={`/adminEditUser/${users.studentId}`} style={{color:"blue"}}>EDIT</a>
+                <a href={`/adminEditUser/${user.studentId}`} style={{color:"blue"}}>EDIT</a>
                   
 
                 </div>

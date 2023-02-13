@@ -13,7 +13,7 @@ router.get('/adminInfor',auth, adminCtrl.getAdmin)
 router.put("/userApprove/:studentId",userCtrl.userApprovals)
 router.put("/tutorApprove/:tutorId",tutorCtrl.tutorApprovals)
 router.put("/adminUserUpdate/:studentId",userCtrl.adminUserUpdate)
-//router.put("/adminTutorUpdate/:tutorId",tutorCtrl.adminTutorUpdate)
+router.put("/adminTutorUpdate/:tutorId",tutorCtrl.adminTutorUpdate)
 
 
 module.exports=router

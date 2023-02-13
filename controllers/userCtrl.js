@@ -45,23 +45,23 @@ const userCtrl = {
       //save to mongodb
       await newUser.save();
 
-      //Then create jsonwebtoken for authentication
-      const access_token = createAccessToken({ id: newUser._id });
-      const refresh_token = createRefreshToken({ id: newUser._id });
-      res.cookie("refreshtoken", refresh_token, {
-        httpOnly: true,
-        path: "/user/refresh_token",
-        maxAge: 30 * 24 * 60 * 60 * 1000, //30days
-      });
+      // //Then create jsonwebtoken for authentication
+      // const access_token = createAccessToken({ id: newUser._id });
+      // const refresh_token = createRefreshToken({ id: newUser._id });
+      // res.cookie("refreshtoken", refresh_token, {
+      //   httpOnly: true,
+      //   path: "/user/refresh_token",
+      //   maxAge: 30 * 24 * 60 * 60 * 1000, //30days
+      // });
 
-      res.json({
-        msg: "Student Registration Successful",
-        access_token,
-        user: {
-          ...newUser._doc,
-          password: "",
-        },
-      });
+      // res.json({
+      //   msg: "Student Registration Successful",
+      //   access_token,
+      //   user: {
+      //     ...newUser._doc,
+      //     password: "",
+      //   },
+      // });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }

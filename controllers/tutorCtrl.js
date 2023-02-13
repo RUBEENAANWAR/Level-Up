@@ -6,15 +6,15 @@ const tutorCtrl = {
   tutorRegister: async (req, res) => {
     try {
       const { tutorId, name, email, mobile, qualification, password } = req.body;
-      if (
-        tutorId === "" ||
-        name === "" ||
-        email === "" ||
-        mobile === "" ||
-        qualification === "" ||
-        password === ""
-      )
-        return res.status(400).json({ msg: "All fields should be filled" });
+      // if (
+      //   tutorId === "" ||
+      //   name === "" ||
+      //   email === "" ||
+      //   mobile === "" ||
+      //   qualification === "" ||
+      //   password === ""
+      // )
+      //   return res.status(400).json({ msg: "All fields should be filled" });
 
       const tutor = await Tutors.findOne({ email });
       if (tutor)
@@ -23,9 +23,9 @@ const tutorCtrl = {
         return res
           .status(400)
           .json({ msg: "Mobile  number should have 10 digits" });
-      if (qualification === "") {
-        return res.status(400).json({ msg: "Enter your quaification" });
-      }
+      // if (qualification === "") {
+      //   return res.status(400).json({ msg: "Enter your quaification" });
+      // }
       if (password.length < 6)
         return res
           .status(400)
@@ -144,7 +144,7 @@ const tutorCtrl = {
     // console.log("getAllusers",allUserDetails);
   },
 
-  userApprovals: async (req, res) => {
+  tutorApprovals: async (req, res) => {
     try {
       const { isApproved } = req.body;
       await Tutors.findOneAndUpdate(
