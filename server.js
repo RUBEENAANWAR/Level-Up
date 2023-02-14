@@ -2,7 +2,7 @@ require('dotenv').config()
 const express=require('express')
 const mongoose=require('mongoose')
 const cors=require('cors')
-const fileUpload=require('express-fileupload')
+// const fileUpload=require('express-fileupload')
 const cookieParser=require('cookie-parser')
 
 const app=express()
@@ -14,13 +14,17 @@ const corsOptions= {
     optionSuccessStatus:200,
   };
   
-  app.use(cors(corsOptions));
-app.use(fileUpload({
-    useTempFiles:true
+//   app.use(cors(corsOptions));
+// app.use(fileUpload({
+//     useTempFiles:true
 
-}))
+// }))
+
+
 
 //Routes
+
+app.use("/public",express.static('public'))
 app.use('/admin',require('./routes/adminRouter'))
 app.use('/user',require('./routes/userRouter'))
 app.use('/tutor',require('./routes/tutorRouter'))

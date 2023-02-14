@@ -6,12 +6,14 @@ import "./UserApproval.css"
 
 function UserApproval() {
   const [allUsers, setAllUsers] = useState([]);
+  const [imagePath,setPath]=useState('')
 
   const getAllUsers = async () => {
     try {
       const res = await axios.get("/admin/allUserDetails");
       console.log("allUsers", res.data.allUsers);
       setAllUsers(res.data.allUsers);
+      setPath(process.env.REACT_APP_IMAGE_PATH)
     } catch (err) {
       Swal.fire({
         text: err.response.data.msg,
@@ -30,7 +32,7 @@ function UserApproval() {
         {allUsers.map((user) => {
           return (
             <div className="student_card" key={user._id}>
-              <img src={user.avatar} alt="" />
+              <img src={`http://localhost:3000/public/images/${user.avatar}`} alt="" />
               <div className="student_box">
                 <h2 title={user.name} style={{ color: "black" }}>
                   {user.name}

@@ -11,14 +11,15 @@ const initialState = {
   email: "",
   mobile: "",
   grade: "",
-  isApproved:""  
+  isApproved:"" ,
+  avatar:"" 
 };
 
 function AdminEditUser() {
-  const state=useContext(GlobalState)
-console.log("globalstate",state);
-const [isLogged,setIsLogged]=state.adminAPI.isLogged
-const [isAdmin,setIsAdmin]=state.adminAPI.isAdmin
+//   const state=useContext(GlobalState)
+// console.log("globalstate",state);
+// const [isLogged,setIsLogged]=state.adminAPI.isLogged
+// const [isAdmin,setIsAdmin]=state.adminAPI.isAdmin
   const [user, setUser] = useState(initialState);
 const navigate=useNavigate()
 const params=useParams()
@@ -41,32 +42,42 @@ useEffect(()=>{
   const handleChangeInput = (e) => {
     const { name, value } = e.target;
     setUser({ ...user, [name]: value });
-    //setState(selectedField:"")
+    //setState({selectedField:""})
   };
+
+  const imageUpload=(e)=>{
+    const { name, value } = e.target;
+    setUser({ ...user,avatar:e.target.files[0]  });
+    //console.log(e.target.files[0]);
+  }
   const handleSubmit=async(e)=>{
     e.preventDefault()
+     console.log("==",user.avatar,"===",user.avatar.name);
+     const formdata=new FormData()
+     formdata.append('avatar',user.avatar,user.avatar.name)
+     formdata.append('name',user.name)
+     formdata.append('email',user.email)
+     formdata.append('mobile',user.mobile)
+     formdata.append('grade',user.grade)
+     formdata.append('isApproved',user.isApproved)
+
     try {
       // if(!isAdmin && !isLogged) return Swal.fire({text:"You are not allowed to edit"})
-
-      await axios.put(`/admin/adminUserUpdate/${user.studentId}`,{...user})
+      await axios.put(`/admin/adminUserUpdate/${user.studentId}`,formdata)
       navigate("/userApprovals")
     } catch (err) {
       Swal.fire({
         text:err.response.data.msg
-      })
+      })  
     }
   }
+ 
   return (
   
     <div style={{ marginLeft: "225px" }} className="edit_std">
 
       <h3 style={{color:"black"}}>EDIT STUDENT</h3>
       <form onSubmit={handleSubmit}>
-      <div className="row">
-      <label htmlFor="image">Upload Image</label>
-          <input type="file" name="myFile" id="myFile" onChange={handleChangeInput} />
-          <input type="submit" value="upload"/>
-        </div>
         <div className="row">
           <label htmlFor="name">Name</label>
           <input type="text" name="name" id="name" onChange={handleChangeInput} />
@@ -98,8 +109,18 @@ useEffect(()=>{
       </select>
           <input type="text" name="address" id="status" onChange={handleChangeInput}/>
         </div>
-        <button type="submit">Edit</button>
+        <div className="row">
+          <label htmlFor="dob">Upload Image</label>
+          <input type="file" className="form-control" name="myFile" onChange={imageUpload}/>
+        </div>
+         <div>
+        <button type="button" className="btn btn-primary" onClick={handleSubmit}>Edit</button>
+        </div>
+        <div>
+        <button type="button" value="true" className="btn btn-primary"  onClick={handleChangeInput} >Approve</button>
+        </div>
       </form>
+      
     </div>
   );
 }

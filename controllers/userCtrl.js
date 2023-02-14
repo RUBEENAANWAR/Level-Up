@@ -160,6 +160,8 @@ const userCtrl = {
   },
   adminUserUpdate: async (req, res) => {
     try {
+      console.log("req.file.log",req.file);
+      let avatar=req.file ? req.file.filename :  null
       const { name, email, grade, mobile, isApproved } = req.body;
 
       await Users.findOneAndUpdate(
@@ -170,6 +172,7 @@ const userCtrl = {
           grade,
           mobile,
           isApproved,
+          avatar
         }
       );
       res.json({ msg: "Student updated" });
