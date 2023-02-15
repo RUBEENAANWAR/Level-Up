@@ -1,4 +1,4 @@
-.tutor-biodata {
+.student-biodata {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -6,23 +6,23 @@
   background:rgb(13, 51, 13);
 }
 
-.tutor-info {
+.student-info {
   width: 60%;
  
 }
 
-.tutor-picture {
+.student-picture {
   margin-top: 20px;
   width:300px;
   height:300px;
   text-align: center;
 }
 
-.tutor-picture img {
+.student-picture img {
   width: 100%;
 
 }
 
-.tutor-info p{
+.student-info p{
   color:#ffffff
 }

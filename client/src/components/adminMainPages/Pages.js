@@ -21,9 +21,9 @@ import UserApproval from './adminPages/UserApproval'
 import TutorApproval from './adminPages/TutorApproval'
 import StudentDetails from '../tutorMainPages/StudentDetails'
 import AdminEditUser from '../adminMainPages/adminPages/adminUserUpdate/AdminEditUser'
-//import TutorProfile from '../tutorMainPages/tutorProfile/TutorProfile'
+import TutorProfile from '../tutorMainPages/tutorProfile/TutorProfile'
 import StudentHome from '../userMainPages/StudentHome'
-import UserProfile from '../userMainPages/UserProfile'
+import UserProfile from '../userMainPages/userProfile/UserProfile'
  
 
 function MainPages() {
@@ -63,11 +63,9 @@ function MainPages() {
       <Route path='/tutorLogin' exact element={isTutor ?<NotFound/>:<TutorLogin/>}/>
       <Route path='/tutorRegister' exact element={isTutor ?<NotFound/>:<TutorRegister/>}/>
       <Route path='/tutorHome' exact element={<TutorHome/>}/>
-      {/* <Route path="/tutorProfile" exact element={<TutorProfile/>}/> */}
-
+      <Route path="/tutorProfile" exact element={<TutorProfile/>}/>
       <Route path='/studentDetails' exact element={<StudentDetails/>}/>
-      
-      
+       
     </Routes>
   )
 }
