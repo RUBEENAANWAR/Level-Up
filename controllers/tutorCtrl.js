@@ -5,16 +5,17 @@ const jwt = require("jsonwebtoken");
 const tutorCtrl = {
   tutorRegister: async (req, res) => {
     try {
-      const { tutorId, name, email, mobile, qualification, password } = req.body;
-      // if (
-      //   tutorId === "" ||
-      //   name === "" ||
-      //   email === "" ||
-      //   mobile === "" ||
-      //   qualification === "" ||
-      //   password === ""
-      // )
-      //   return res.status(400).json({ msg: "All fields should be filled" });
+      const { tutorId, name, email, mobile, qualification, password, subjects } = req.body;
+      if (
+        tutorId === "" ||
+        name === "" ||
+        email === "" ||
+        mobile === "" ||
+        qualification === "" ||
+        password === ""||
+        subjects ===""
+      )
+        return res.status(400).json({ msg: "All fields should be filled" });
 
       const tutor = await Tutors.findOne({ email });
       if (tutor)
@@ -22,10 +23,10 @@ const tutorCtrl = {
       if (mobile.length != 10)
         return res
           .status(400)
-          .json({ msg: "Mobile  number should have 10 digits" });
-      // if (qualification === "") {
-      //   return res.status(400).json({ msg: "Enter your quaification" });
-      // }
+          .json({ msg: "Mobile number should have 10 digits" });
+      if (qualification === "") {
+        return res.status(400).json({ msg: "Enter your grade" });
+      }
       if (password.length < 6)
         return res
           .status(400)
@@ -40,28 +41,29 @@ const tutorCtrl = {
         email,
         qualification,
         mobile,
+        subjects
       });
       console.log(newTutor);
       //save to mongodb
       await newTutor.save();
 
-      //Then create jsonwebtoken for authentication
-      const access_token = createAccessToken({ id: newTutor._id });
-      const refresh_token = createRefreshToken({ id: newTutor._id });
-      res.cookie("refreshtoken", refresh_token, {
-        httpOnly: true,
-        path: "/tutor/refresh_token",
-        maxAge: 30 * 24 * 60 * 60 * 1000, //30days
-      });
+      // //Then create jsonwebtoken for authentication
+      // const access_token = createAccessToken({ id: newUser._id });
+      // const refresh_token = createRefreshToken({ id: newUser._id });
+      // res.cookie("refreshtoken", refresh_token, {
+      //   httpOnly: true,
+      //   path: "/user/refresh_token",
+      //   maxAge: 30 * 24 * 60 * 60 * 1000, //30days
+      // });
 
-      res.json({
-        msg: "tutor Registration Successful",
-        access_token,
-        user: {
-          ...newTutor._doc,
-          password: "",
-        },
-      });
+      // res.json({
+      //   msg: "Student Registration Successful",
+      //   access_token,
+      //   user: {
+      //     ...newUser._doc,
+      //     password: "",
+      //   },
+      // });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }
@@ -124,7 +126,7 @@ const tutorCtrl = {
   },
   getTutor: async (req, res) => {
     try {
-      const user = await Tutors.findById(req.tutor.id).select("-password");
+      const tutor = await Tutors.findById(req.tutor.id).select("-password");
       if (!tutor) return res.status(400).json({ msg: "Tutor does not exist" });
 
       res.json(tutor);
@@ -134,9 +136,9 @@ const tutorCtrl = {
   },
   getAllTutors: async (req, res) => {
     try {
-      const allTutors = await Users.find().select("-password");
+      const allTutors = await Tutors.find().select("-password");
       if (!allTutors)
-        return res.status(400).json({ msg: "Tutor details cannot be fetched" });
+        return res.status(400).json({ msg: "Tutors details cannot be fetched" });
       res.json({ allTutors });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
@@ -160,7 +162,9 @@ const tutorCtrl = {
   },
   adminTutorUpdate: async (req, res) => {
     try {
-      const { name, email, qualification, mobile, isApproved } = req.body;
+      console.log("req.file.log",req.file);
+      let avatar=req.file ? req.file.filename :  null
+      const { name, email, qualification, mobile, isApproved, subjects } = req.body;
 
       await Tutors.findOneAndUpdate(
         { tutorId: req.params.tutorId },
@@ -170,6 +174,8 @@ const tutorCtrl = {
           qualification,
           mobile,
           isApproved,
+          subjects,
+          avatar
         }
       );
       res.json({ msg: "Tutor updated" });

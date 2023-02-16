@@ -6,12 +6,15 @@ import "./TutorApproval.css"
 
 function TutorApproval() {
   const [allTutors, setAllTutors] = useState([]);
+  const [imagePath,setPath]=useState('')
 
   const getAllTutors = async () => {
     try {
       const res = await axios.get("/admin/allTutorDetails");
       console.log("alltutors", res.data.allTutors);
       setAllTutors(res.data.allTutors);
+      setPath(process.env.REACT_APP_IMAGE_PATH)
+
     } catch (err) {
       Swal.fire({
         text: err.response.data.msg,
@@ -26,24 +29,24 @@ function TutorApproval() {
   return (
     <div style={{ marginLeft: "250px" }}>
 
-      <div className="students">
-        {allTutors.map((tutors) => {
+      <div className="tutors">
+        {allTutors.map((tutor) => {
           return (
-            <div className="student_card" key={tutors._id}>
-              <img src={tutors.avatar} alt="" />
-              <div className="student_box">
-                <h2 title={tutors.name} style={{ color: "black" }}>
-                  {tutors.name}
+            <div className="tutors_card" key={tutor._id}>
+              <img src={`http://localhost:3000/public/images/${tutor.avatar}`} alt="" />
+              <div className="tutor_box">
+                <h2 title={tutor.name} style={{ color: "black" }}>
+                  {tutor.name}
                 </h2>
-                <p>Id: {tutors.tutorId}</p>
-                <p>Grade: {tutors.grade}</p>
-                <p>Email: {tutors.email}</p>
-                <p>Mobile: {tutors.mobile}</p>
-                <p>Status:{tutors.isApproved}</p>
+                <p>Id: {tutor.tutorId}</p>
+                <p>Grade: {tutor.grade}</p>
+                <p>Email: {tutor.email}</p>
+                <p>Mobile: {tutor.mobile}</p>
+                <p>Status:{tutor.isApproved}</p>
 
                 <div className="row_btn">
-                  <button style={{ background: "#cf1928" }}>Pending</button>
-                  <button style={{ background: "#243f8a" }}>Approved</button>
+                <a href={`/adminEditTutor/${tutor.tutorId}`} style={{color:"blue"}}>EDIT</a>
+
 
                 </div>
               </div>

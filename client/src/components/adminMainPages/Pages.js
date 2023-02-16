@@ -24,6 +24,7 @@ import AdminEditUser from '../adminMainPages/adminPages/adminUserUpdate/AdminEdi
 import TutorProfile from '../tutorMainPages/tutorProfile/TutorProfile'
 import StudentHome from '../userMainPages/StudentHome'
 import UserProfile from '../userMainPages/userProfile/UserProfile'
+import AdminEditTutor from './adminPages/adminTutorUpdate/adminEditTutor'
  
 
 function MainPages() {
@@ -50,6 +51,7 @@ function MainPages() {
       <Route path="/adminProfile" exact element={isLogged ? <AdminProfile/>:<NotFound/>}/>
       <Route path="/adminPayment" exact element={isLogged ? <AdminPayment/>:<NotFound/>}/>
       <Route exact path="/adminEditUser/:id" element={isAdmin && isLogged? <AdminEditUser/>:<NotFound/>} />
+      <Route exact path="/adminEditTutor/:id" element={isAdmin && isLogged? <AdminEditTutor/>:<NotFound/>} />
       <Route exact path="/studentHome" element={<StudentHome/>}/>
 
       <Route path="*" exact element={<NotFound/>}/>

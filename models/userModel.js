@@ -42,6 +42,16 @@ isApproved:{
     type:String,
     default:"false"
 },
+
+verified:{
+    type:Boolean,
+    required:true,
+    default:false
+},
+subjects:{
+    type:Array,
+},
+
 avatar:{
     type:String,
     default:"https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-default-avatar-profile-icon-vector-social-media-user-image-vector-illustration-227787227.jpg"

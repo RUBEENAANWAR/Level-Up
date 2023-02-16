@@ -1,5 +1,5 @@
 import React,{useState} from 'react';
-//import {Link} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import axios from 'axios';
 import './userRegister.css';
 import swal from 'sweetalert2';
@@ -14,14 +14,15 @@ function UserRegister() {
     setUser({...user,[name]:value})
   }
 
-  const registerSubmit=async e=>{
+  const RegisterSubmit = async(e)=>{
     e.preventDefault()
     try {
-      await axios.post('user/userRegister',{...user})
+      await axios.post('/user/userRegister',{...user})
       localStorage.setItem('studentLogin',true)
       window.location.href='/userLogin';
 
     } catch (err) {
+      console.log(err);
       swal.fire({
         text: err.response.data.msg,
         icon: "warning",
@@ -36,7 +37,7 @@ function UserRegister() {
   return (
     <div className="main-container">
       <div className="Container" style={{ marginLeft: "220px" }}>
-        <form onSubmit={registerSubmit}>
+        <form onSubmit={RegisterSubmit}>
           <h2>Student Registration</h2>
           <div className="content">
           <div className="input-box">

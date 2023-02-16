@@ -27,6 +27,7 @@ router.get('/adminInfor',auth, adminCtrl.getAdmin)
 router.get("/allUserDetails",userCtrl.getAllUsers)
 router.put("/userApprove/:studentId",userCtrl.userApprovals)
 router.put("/adminUserUpdate/:studentId",upload.single('avatar'),userCtrl.adminUserUpdate)
+router.post("/verify-email",userCtrl.verifyEmail)
 
 //tutors
 router.get("/allTutorDetails",tutorCtrl.getAllTutors)

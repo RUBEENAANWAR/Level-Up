@@ -1,10 +1,14 @@
 const Users = require("../models/userModel");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const { generateOTP, mailTransport,generateEmailTemplate, plainEmailTemplate} = require("../utils/mail");
+const VerificationToken =require("../models/verificationToken")
+const { isValidObjectId } = require("mongoose");
 
 const userCtrl = {
   userRegister: async (req, res) => {
     try {
+      console.log(6778);
       const { studentId, name, email, mobile, grade, password } = req.body;
       if (
         studentId === "" ||
@@ -12,7 +16,8 @@ const userCtrl = {
         email === "" ||
         mobile === "" ||
         grade === "" ||
-        password === ""
+        password === "" ||
+        subjects===""
       )
         return res.status(400).json({ msg: "All fields should be filled" });
 
@@ -40,29 +45,47 @@ const userCtrl = {
         email,
         grade,
         mobile,
+        subjects
       });
+
+      let OTP= generateOTP()
+      const verificationToken=new VerificationToken({
+        owner:newUser._id,
+        token:OTP
+      })
+ 
+      //const verificationToken=
       console.log(newUser);
       //save to mongodb
+      await verificationToken.save();
       await newUser.save();
 
-      // //Then create jsonwebtoken for authentication
-      // const access_token = createAccessToken({ id: newUser._id });
-      // const refresh_token = createRefreshToken({ id: newUser._id });
-      // res.cookie("refreshtoken", refresh_token, {
-      //   httpOnly: true,
-      //   path: "/user/refresh_token",
-      //   maxAge: 30 * 24 * 60 * 60 * 1000, //30days
-      // });
+      mailTransport().sendMail({
+        from:process.env._USERNAME,
+        to:newUser.email,
+        subject:"Verify your email account",
+        html:generateEmailTemplate(OTP),
+      })
 
-      // res.json({
-      //   msg: "Student Registration Successful",
-      //   access_token,
-      //   user: {
-      //     ...newUser._doc,
-      //     password: "",
-      //   },
-      // });
+      //Then create jsonwebtoken for authentication
+      const access_token = createAccessToken({ id: newUser._id });
+      const refresh_token = createRefreshToken({ id: newUser._id });
+      res.cookie("refreshtoken", refresh_token, {
+        httpOnly: true,
+        path: "/user/refresh_token",
+        maxAge: 30 * 24 * 60 * 60 * 1000, //30days
+      });
+
+      res.json({
+        msg: "Student Registration Successful",
+        access_token,
+        user: {
+          ...newUser._doc,
+          password: "",
+        },
+      });
     } catch (err) {
+      console.log(err);
       return res.status(500).json({ msg: err.message });
     }
   },
@@ -180,7 +203,39 @@ const userCtrl = {
       res.status(500).json({ msg: err.message });
     }
   },
+  verifyEmail : async(req,res)=>{
+    const {studentId,otp}=req.body
+    if(!studentId || !otp.trim()) return res.status(400).json({msg:"invalid request, missing parameters"})
+  
+    if(!isValidObjectId(studentId)) return res.status(400).json({msg: "invalid user id!"})
+    const user = await Users.findById(studentId)
+    if(!user) return res.status(400).json({msg:"sorry, student not found!"})
+  
+    if(user.verified) return res.status(400).json({msg:"This account is already verified!"})
+     
+     const token=await VerificationToken.findOne({owner:user._id})
+    if(!token) return res.status(400).json({msg:"sorry, student not found!"})
+  
+    const isMatched = await token.compareToken(otp)
+    if(!isMatched) return res.status(400).json({msg:"Please provide a valid token"})
+  
+    user.verified=true
+    await VerificationToken.findByIdAndDelete(token._id)
+    await user.save()
+  
+    mailTransport().sendMail({
+      from:"rubeenaanwar5354@gmail.com",
+      to:user.email,
+      subject:"Confirmation",
+      html:plainEmailTemplate(
+        "Email verified successfully","thanks for connecting with us"),
+    })
+    res.json({msg:"Student email is verified"})
+  } 
 };
+
+
+
 
 const createAccessToken = (user) => {
   return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "1d" });
