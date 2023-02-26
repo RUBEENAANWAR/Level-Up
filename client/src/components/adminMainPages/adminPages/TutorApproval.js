@@ -43,6 +43,7 @@ function TutorApproval() {
                 <p>Email: {tutor.email}</p>
                 <p>Mobile: {tutor.mobile}</p>
                 <p>Status:{tutor.isApproved}</p>
+                <p>Subject: {tutor.subject}</p>
 
                 <div className="row_btn">
                 <a href={`/adminEditTutor/${tutor.tutorId}`} style={{color:"blue"}}>EDIT</a>

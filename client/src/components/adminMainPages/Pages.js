@@ -8,14 +8,14 @@ import AddTutor from './adminPages/AddTutor'
 import AddStudent from './adminPages/AddStudent'
 import AdminTutor from './adminPages/AdminTutor'
 import AdminStudent from './adminPages/AdminStudent'
-import AdminProfile from './adminPages/AdminProfile'
+import AdminProfile from './adminPages/adminProfile/AdminProfile'
 import AdminPayment from './adminPages/AdminPayment'
 import UserHome from '../userMainPages/UserHome'
 import UserRegister from '../userMainPages/userAuth/UserRegister'
 import UserLogin from '../userMainPages/userAuth/UserLogin'
 import TutorLogin from '../tutorMainPages/tutorAuth/TutorLogin'
 import TutorRegister from '../tutorMainPages/tutorAuth/TutorRegister'
-import TutorHome from '../tutorMainPages/TutorHome' 
+import TutorHome from '../tutorMainPages/tutorHome/TutorHome' 
 import {GlobalState} from '../../GlobalState'
 import UserApproval from './adminPages/UserApproval'
 import TutorApproval from './adminPages/TutorApproval'
@@ -25,7 +25,7 @@ import TutorProfile from '../tutorMainPages/tutorProfile/TutorProfile'
 import StudentHome from '../userMainPages/StudentHome'
 import UserProfile from '../userMainPages/userProfile/UserProfile'
 import AdminEditTutor from './adminPages/adminTutorUpdate/adminEditTutor'
- 
+import TutorViewStds from "../tutorMainPages/tutorViewStds/TutorViewStds";
 
 function MainPages() {
   const state=useContext(GlobalState)
@@ -67,7 +67,7 @@ function MainPages() {
       <Route path='/tutorHome' exact element={<TutorHome/>}/>
       <Route path="/tutorProfile" exact element={<TutorProfile/>}/>
       <Route path='/studentDetails' exact element={<StudentDetails/>}/>
-       
+      {/* <Route exact path="/tutorViewStds" element={  <TutorViewStds/>} /> */}
     </Routes>
   )
 }

@@ -2,16 +2,27 @@ import React from "react";
 import "./tutorHome.css";
 //import { Link } from "react-router-dom";
 import {Box,Link,Grid} from '@mui/material'
+import tutorImage from '../../headers/icon/Screen_Shot_2020-09-09_at_2.00.46_PM.png'
 
 
 const TutorHome = () => {
   return (
-    // <div className="adminhome" style={{backgroundColor:"#2F2F2F"}}>
-    <Grid container my={2} spacing={10} marginLeft={'3rem'} marginRight={'3rem'} marginBottom={'3rem'} backgroundColor={'#1c2c3b'}>
+    <div className="tutorhome">
+   
+    <Grid container my={2} spacing={10} marginLeft={'3rem'} marginRight={'3rem'} marginBottom={'3rem'} backgroundColor={'#ebebe8'} style={{
+      height: '100vh',
+      display: 'flex',
+      flexDirection: 'column',        
+      backgroundSize: "contain",
+      backgroundRepeat: 'no-repeat',
+      flexWrap: 'wrap',
+      width: '100%',
+      backgroundColor:"#ebebe8"
+    }}>
       <Grid item xs={12} sm={6}>
       <Link href="/ListOfStudents" style={{ textDecoration: "none" }}>
         <Box sx={{
-        backgroundColor:'#596235',
+        backgroundColor:'#171717',
         color:'white',
         borderRadius:'2rem',
         height:'8rem',
@@ -20,13 +31,13 @@ const TutorHome = () => {
         textAlign:'center',
         cursor:'pointer',
         '&:hover':{
-          backgroundColor:'#32a834',
+          backgroundColor:'#F9a602',
         }}}>LIST OF STUDENTS & TIMING</Box></Link>
       </Grid>
       <Grid item xs={12} sm={6}>
       <Link href="/totalhours" style={{ textDecoration: "none" }}>
         <Box sx={{
-        backgroundColor:'#596235',
+        backgroundColor:'#171717',
         color:'white',
         borderRadius:'2rem',
         height:'8rem',
@@ -35,13 +46,14 @@ const TutorHome = () => {
         textAlign:'center',
         cursor:'pointer',
         '&:hover':{
-          backgroundColor:'#32a834',
+          backgroundColor:'#F9a602',
         }}}>TOTAL HOURS HANDLED</Box></Link>
       </Grid>
+      
       <Grid item xs={12} sm={6}>
       <Link href="/startNewClass" style={{ textDecoration: "none" }}>
       <Box sx={{
-        backgroundColor:'#596235',
+        backgroundColor:'#171717',
         color:'white',
         borderRadius:'2rem',
         height:'8rem',
@@ -50,14 +62,14 @@ const TutorHome = () => {
         cursor:'pointer',
         textAlign:'center',
         '&:hover':{
-          backgroundColor:'#32a834',
+          backgroundColor:'#F9a602',
         }}}>START A NEW CLASS</Box></Link>
 
       </Grid>
       <Grid item xs={12} sm={6}>
       <Link href="/attendance" style={{ textDecoration: "none" }}>
       <Box sx={{
-        backgroundColor:'#596235',
+        backgroundColor:'#171717',
         color:'white',
         borderRadius:'2rem',
         height:'8rem',
@@ -66,13 +78,13 @@ const TutorHome = () => {
         padding:'3rem',
         textAlign:'center',
         '&:hover':{
-          backgroundColor:'#32a834',
+          backgroundColor:'#F9a602',
         }}}>ATTENDANCE</Box></Link>
       </Grid>
       <Grid item xs={12} sm={6}>
       <Link href="/studentAssignments" style={{ textDecoration: "none" }}>
       <Box sx={{
-        backgroundColor:'#596235',
+        backgroundColor:'#171717',
         color:'white',
         borderRadius:'2rem',
         height:'8rem',
@@ -81,13 +93,13 @@ const TutorHome = () => {
         cursor:'pointer',
         textAlign:'center',
         '&:hover':{
-          backgroundColor:'#32a834',
+          backgroundColor:'#F9a602',
         }}}>STUDENTS ASSIGNMENTS</Box></Link>
       </Grid>
       <Grid item xs={12} sm={6}>
       <Link href="/studentDetails" style={{ textDecoration: "none" }}>
       <Box sx={{
-        backgroundColor:'#596235',
+        backgroundColor:'#171717',
         color:'white',
         borderRadius:'2rem',
         height:'8rem',
@@ -96,13 +108,13 @@ const TutorHome = () => {
         padding:'3rem',
         textAlign:'center',
         '&:hover':{
-          backgroundColor:'#32a834',
+          backgroundColor:'#F9a602',
         }}}>STUDENT DETAILS</Box></Link>
       </Grid>
       <Grid item xs={12} sm={6}>
       <Link href="/tutorProfile" style={{ textDecoration: "none" }}>
       <Box sx={{
-        backgroundColor:'#596235',
+        backgroundColor:'#171717',
         color:'white',
         borderRadius:'2rem',
         height:'8rem',
@@ -111,7 +123,7 @@ const TutorHome = () => {
         padding:'3rem',
         textAlign:'center',
         '&:hover':{
-          backgroundColor:'#32a834',
+          backgroundColor:'#F9a602',
         }}}>PROFILE</Box></Link>
       </Grid>
     </Grid>

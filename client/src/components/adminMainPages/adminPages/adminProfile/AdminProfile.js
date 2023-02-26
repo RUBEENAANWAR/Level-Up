@@ -1,8 +1,9 @@
 import React, { useState, useContext, useEffect } from "react";
-import { GlobalState } from "../../../GlobalState";
+import { GlobalState } from "../../../../GlobalState";
 import axios from "axios";
-import NotFound from "../utils/not_found/NotFound";
+import NotFound from "../../utils/not_found/NotFound";
 import swal from "sweetalert2";
+import AdminProfileEdit from "./adminEditProfile"
 //import ProfPic from "../../headers/icon/profpic.png";
 import "./adminprof.css";
 
@@ -28,8 +29,13 @@ const AdminProfile = () => {
       GetAdmin();
     }, []);
 
+    //  const profileSubmit=async e=>{
+    //   e.preventDefault()
+    //   window.location.href='/adminHome';
+
     return (
       <div className="main">
+      {/* <form onSubmit={profileSubmit}> */}
         <div className="container emp">
           <div className="profile-container">
             <img src={adminDetails.avatar} alt="" />
@@ -43,7 +49,8 @@ const AdminProfile = () => {
             <p>{adminDetails.mobile}</p>
           </div>
         </div>
-        {/* <button className="Button-style">Change Profile Pic</button> */}
+        <button className="Button-style">Change admin porfile</button>
+        {/* </form> */}
       </div>
     );
   }

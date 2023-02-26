@@ -48,8 +48,8 @@ verified:{
     required:true,
     default:false
 },
-subjects:{
-    type:Array,
+subject:{
+    type:String,
 },
 
 avatar:{

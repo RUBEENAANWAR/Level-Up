@@ -13,7 +13,7 @@ const initialState = {
   qualification: "",
   isApproved:"" ,
   avatar:"",
-  subjects:[] 
+  subject:""
 };
 
 function AdminEditTutor() {
@@ -61,9 +61,8 @@ useEffect(()=>{
      formdata.append('mobile',tutor.mobile)
      formdata.append('qualification',tutor.qualification)
      formdata.append('isApproved',tutor.isApproved)
-     formdata.append('subjects',tutor.subjects)
-
-
+     formdata.append('subject',tutor.subject)
+     
     try {
       // if(!isAdmin && !isLogged) return Swal.fire({text:"You are not allowed to edit"})
       await axios.put(`/admin/adminTutorUpdate/${tutor.tutorId}`,formdata)
@@ -83,32 +82,32 @@ useEffect(()=>{
       <form onSubmit={handleSubmit}>
         <div className="row">
           <label htmlFor="name">Name</label>
-          <input type="text" name="name" id="name" onChange={handleChangeInput} />
+          <input type="text" value={tutor.name} name="name" id="name" onChange={handleChangeInput} />
         </div>
         <div className="row">
           <label htmlFor="email">Email</label>
-          <input type="text" name="email" id="email" onChange={handleChangeInput} />
+          <input type="text" value={tutor.email} name="email" id="email" onChange={handleChangeInput} />
         </div>
         <div className="row">
           <label htmlFor="mobile">Mobile</label>
-          <input type="text" name="mobile" id="mobile"  onChange={handleChangeInput}/>
+          <input type="text" value={tutor.mobile} name="mobile" id="mobile"  onChange={handleChangeInput}/>
         </div>
         {/* <div className="row">
           <label htmlFor="dob">Date of Birth</label>
           <input type="text" name="dob" id="dob" onChange={handleChangeInput}/>
         </div> */}
         <div className="row">
-          <label htmlFor="bloodGroup">subjects</label>
-          <input type="text" name="bloodGroup" id="bloodGroup" onChange={handleChangeInput}/>
+          <label htmlFor="subject">Subject</label>
+          <input type="subject" name="subject" id="subject"  onChange={handleChangeInput}/>
         </div>
         <div className="row">
           <label htmlFor="qualificaion">Qualificaion</label>
-          <input type="text" name="qualificaion" id="qualificaion" onChange={handleChangeInput}/>
+          <input type="text" value={tutor.qualification} name="qualificaion" id="qualificaion" onChange={handleChangeInput}/>
         </div>
         <div className="row">
         <select>
-       <option value="true">True</option>
-      <option value="false">False</option> 
+       <option value="true" onChange={handleChangeInput}>True</option>
+      <option value="false" onChange={handleChangeInput}>False</option> 
       </select>
           <input type="text" name="address" id="status" onChange={handleChangeInput}/>
         </div>
@@ -117,11 +116,11 @@ useEffect(()=>{
           <input type="file" className="form-control" name="myFile" onChange={imageUpload}/>
         </div>
          <div>
-        <button type="button" className="btn btn-primary" onClick={handleSubmit}>Edit</button>
+        <button type="button" style={{backgroundColor:"black"}} className="btn btn-primary" onClick={handleSubmit}>Edit</button>
         </div>
-        <div>
+        {/* <div>
         <button type="button" value="true" className="btn btn-primary"  onClick={handleChangeInput} >Approve</button>
-        </div>
+        </div> */}
       </form>
       
     </div>

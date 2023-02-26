@@ -1,8 +1,14 @@
 .edit_std {
     display: flex;
     flex-wrap: wrap;
-  
     justify-content: center;
+    text-align: center;
+    border: #fff 1px solid;
+    margin: 5vh 30vw;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 0 25px#a7a2a2;
+    background-color: #AFAFAF; 
   }
   
   .edit_std form{
@@ -27,7 +33,27 @@
       margin-top: 20px;
       border-style: none;
       border-radius:5px;
-      background: rgb(55, 168, 55);
+      background-color: aquamarine;
+      box-shadow: 0 0 25px #a7a2a2;
       color: #fff;
       padding: 5px 0 5px;
   }
+
+  input{
+    border-radius: 15px;
+    padding: 10px;
+    text-align: center;
+    margin: 10px;
+    background-color: #dfdfdf;
+  }
+
+  select{
+    border-radius: 15px;
+    padding: 10px;
+    text-align: center;
+    margin: 10px;
+    width:500px;
+    background-color: #dfdfdf;
+
+  }
+

@@ -70,7 +70,7 @@ const AdminHome = () => {
         }}}>TUTOR APPROVAL</Box></Link>
       </Grid>
       <Grid item xs={12} sm={6}>
-      <Link href="/adminStudent" style={{ textDecoration: "none" }}>
+      <Link href="/studentDetails" style={{ textDecoration: "none" }}>
       <Box sx={{
         backgroundColor:'#D96846',
         color:'white',

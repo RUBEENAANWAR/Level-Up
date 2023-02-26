@@ -90,6 +90,16 @@ function UserRegister() {
             </div>
 
             <div className="input-box">
+              <label htmlFor="subjects">Subjects</label>
+              <input
+                type="subjects"
+                placeholder="Subjects"
+                name="subjects"
+                onChange={onChangeInput}
+              />
+            </div>
+
+            <div className="input-box">
               <label htmlFor="password">Password</label>
               <input
                 type="password"

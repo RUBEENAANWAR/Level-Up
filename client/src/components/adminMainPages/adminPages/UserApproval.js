@@ -26,12 +26,11 @@ function UserApproval() {
   }, []);
 
   return (
-    <div style={{ marginLeft: "250px" }}>
-
+    <div>
       <div className="students">
         {allUsers.map((user) => {
           return (
-            <div className="student_card" key={user._id}>
+            <div className="student_card" style={{height:"500px"}} key={user._id}>
               <img src={`http://localhost:3000/public/images/${user.avatar}`} alt="" />
               <div className="student_box">
                 <h2 title={user.name} style={{ color: "black" }}>
@@ -41,6 +40,7 @@ function UserApproval() {
                 <p>Grade: {user.grade}</p>
                 <p>Email: {user.email}</p>
                 <p>Mobile: {user.mobile}</p>
+                <p>Subject: {user.subject}</p>
                 <p>Status:{user.isApproved.toString()}</p>
 
                 <div className="row_btn">

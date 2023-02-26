@@ -1,8 +1,13 @@
 const Users = require("../models/userModel");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const { generateOTP, mailTransport,generateEmailTemplate, plainEmailTemplate} = require("../utils/mail");
-const VerificationToken =require("../models/verificationToken")
+const {
+  generateOTP,
+  mailTransport,
+  generateEmailTemplate,
+  plainEmailTemplate,
+} = require("../utils/mail");
+const VerificationToken = require("../models/verificationToken");
 const { isValidObjectId } = require("mongoose");
 
 const userCtrl = {
@@ -16,8 +21,7 @@ const userCtrl = {
         email === "" ||
         mobile === "" ||
         grade === "" ||
-        password === "" ||
-        subjects===""
+        password === ""
       )
         return res.status(400).json({ msg: "All fields should be filled" });
 
@@ -45,27 +49,27 @@ const userCtrl = {
         email,
         grade,
         mobile,
-        subjects
+       
       });
 
-      let OTP= generateOTP()
-      const verificationToken=new VerificationToken({
-        owner:newUser._id,
-        token:OTP
-      })
- 
-      //const verificationToken=
+      const OTP = generateOTP();
+      const verificationToken = new VerificationToken({
+        owner: newUser._id,
+        token: OTP,
+      });
+
+
       console.log(newUser);
       //save to mongodb
       await verificationToken.save();
       await newUser.save();
 
       mailTransport().sendMail({
-        from:process.env._USERNAME,
-        to:newUser.email,
-        subject:"Verify your email account",
-        html:generateEmailTemplate(OTP),
-      })
+        from: process.env._USERNAME,
+        to: newUser.email,
+        subject: "Verify your email account",
+        html: generateEmailTemplate(OTP),
+      });
 
       //Then create jsonwebtoken for authentication
       const access_token = createAccessToken({ id: newUser._id });
@@ -183,9 +187,9 @@ const userCtrl = {
   },
   adminUserUpdate: async (req, res) => {
     try {
-      console.log("req.file.log",req.file);
-      let avatar=req.file ? req.file.filename :  null
-      const { name, email, grade, mobile, isApproved } = req.body;
+      console.log("req.file.log", req.file);
+      let avatar = req.file ? req.file.filename : null;
+      const { name, email, grade, mobile, isApproved ,subject} = req.body;
 
       await Users.findOneAndUpdate(
         { studentId: req.params.studentId },
@@ -195,7 +199,8 @@ const userCtrl = {
           grade,
           mobile,
           isApproved,
-          avatar
+          avatar,
+          subject,
         }
       );
       res.json({ msg: "Student updated" });
@@ -203,39 +208,46 @@ const userCtrl = {
       res.status(500).json({ msg: err.message });
     }
   },
-  verifyEmail : async(req,res)=>{
-    const {studentId,otp}=req.body
-    if(!studentId || !otp.trim()) return res.status(400).json({msg:"invalid request, missing parameters"})
-  
-    if(!isValidObjectId(studentId)) return res.status(400).json({msg: "invalid user id!"})
-    const user = await Users.findById(studentId)
-    if(!user) return res.status(400).json({msg:"sorry, student not found!"})
-  
-    if(user.verified) return res.status(400).json({msg:"This account is already verified!"})
-     
-     const token=await VerificationToken.findOne({owner:user._id})
-    if(!token) return res.status(400).json({msg:"sorry, student not found!"})
-  
-    const isMatched = await token.compareToken(otp)
-    if(!isMatched) return res.status(400).json({msg:"Please provide a valid token"})
-  
-    user.verified=true
-    await VerificationToken.findByIdAndDelete(token._id)
-    await user.save()
-  
+  verifyEmail: async (req, res) => {
+    const { studentId, otp } = req.body;
+    // if (!studentId || !otp.trim())
+    if (!studentId || typeof otp === 'undefined' || !otp.trim()) 
+      return res
+        .status(400)
+        .json({ msg: "invalid request, missing parameters" });
+    if (!isValidObjectId(studentId))
+      return res.status(400).json({ msg: "invalid user id!" });
+    const user = await Users.findById(studentId);
+    if (!user)
+      return res.status(400).json({ msg: "sorry, student not found!" });
+
+    if (user.verified)
+      return res.status(400).json({ msg: "This account is already verified!" });
+
+    const token = await VerificationToken.findOne({ owner: user._id });
+    if (!token)
+      return res.status(400).json({ msg: "sorry, student not found!" });
+
+    const isMatched = await token.compareToken(otp);
+    if (!isMatched)
+      return res.status(400).json({ msg: "Please provide a valid token" });
+
+    user.verified = true;
+    await VerificationToken.findByIdAndDelete(token._id);
+    await user.save();
+
     mailTransport().sendMail({
-      from:"rubeenaanwar5354@gmail.com",
-      to:user.email,
-      subject:"Confirmation",
-      html:plainEmailTemplate(
-        "Email verified successfully","thanks for connecting with us"),
-    })
-    res.json({msg:"Student email is verified"})
-  } 
+      from: process.env._USERNAME,
+      to: user.email,
+      subject: "Confirmation",
+      html: plainEmailTemplate(
+        "Email verified successfully",
+        "thanks for connecting with us"
+      ),
+    });
+    res.json({ msg: "Student email is verified" });
+  },
 };
-
-
-
 
 const createAccessToken = (user) => {
   return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "1d" });

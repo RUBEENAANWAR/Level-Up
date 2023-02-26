@@ -19,7 +19,8 @@ useEffect(()=>{
                 // console.log(res,"data");
                
             } catch(err){
-                swal.fire(err.response.data.msg)
+                //swal.fire(err.response.data.msg)
+                console.log(err.response.data.msg);
             }
         }
         getUser()

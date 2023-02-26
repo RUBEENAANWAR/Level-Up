@@ -143,7 +143,7 @@ text-decoration: none;
   /* teacher header */
   
   .tchrHeader{
-    background-color: #5c615c;
+    background-color: #171717;
     min-height: 70px;
     width:100% ;
     
@@ -170,12 +170,12 @@ text-decoration: none;
     flex-direction: row;
     align-items: flex-end;
     justify-content: space-between;
-    background:#5c615c;
+    background:#171717;
     text-decoration: none;
 }
 
 .tchrLOGO{
-    background: #5c615c;
+    background: #171717;
     opacity: 0,;
 }
 .tchrHeader ul li:hover{
@@ -190,32 +190,33 @@ margin-bottom: 15px;
     list-style: none;
     border:none;
     outline: none;
-    background: #5c615c;
+    background: #171717;
     cursor: pointer;
     color: rgb(240, 243, 243);
   }
   .tchrmenu{
-    background: #5c615c;
+    background: #171717;
     cursor: pointer;
     color: rgb(240, 243, 243);
     display: none;
   }
   .tchrlogout-button{
-    background:#68b278 ;
+    background:#fde804 ;
     border-style: none;
-    color: #fff;
+    color: #070707;
     padding-left: 10px;
     padding-right: 10px;
-    padding-top: 3px;
+    padding-top: 5px;
     padding-bottom: 3px;
     margin-right:20px ;
     margin-top: 10px;
     margin-left: 100px;
+    border-radius: 6px;
 
   }
   .tchrlogout-button:hover{
     background:#85b28f;
-    border-radius: 5px;
+    border-radius: 8px;
     transition: 0.5s;
   }
   /* normal */

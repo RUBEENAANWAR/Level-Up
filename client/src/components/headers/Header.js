@@ -63,10 +63,10 @@ function UserHeader() {
         <img src={Menu} width="25" />
       </div>
       <div className="stdlogo">
-      <Link to="/userProfile">
+      {/* <Link to="/userProfile">
           <p>Profile</p>
-        </Link>
-        <Link to="/userHome">
+        </Link> */}
+        <Link to="/studentHome">
           <img src={Logo} width="70" className="stdLOGO" />
         </Link>
       </div>
@@ -114,7 +114,7 @@ function TutorHeader() {
         {isTutor && isTutorLogged && (
           <>
             {/* <li style={{color:"#ffff"}}>ADMIN </li> */}
-            <li style={{ color: "#ffff" }}>
+            <li style={{ color: "#ffff", }}>
               <Link to="/tutorProfile">
               <p className='tchrprofile'>Profile</p>
               </Link>

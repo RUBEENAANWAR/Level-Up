@@ -1,19 +1,19 @@
 const Tutors = require("../models/tutorModel");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const Users=require('../models/userModel')
 
 const tutorCtrl = {
   tutorRegister: async (req, res) => {
     try {
-      const { tutorId, name, email, mobile, qualification, password, subjects } = req.body;
+      const { tutorId, name, email, mobile, qualification, password, subject } = req.body;
       if (
         tutorId === "" ||
         name === "" ||
         email === "" ||
         mobile === "" ||
         qualification === "" ||
-        password === ""||
-        subjects ===""
+        password === ""
       )
         return res.status(400).json({ msg: "All fields should be filled" });
 
@@ -25,7 +25,7 @@ const tutorCtrl = {
           .status(400)
           .json({ msg: "Mobile number should have 10 digits" });
       if (qualification === "") {
-        return res.status(400).json({ msg: "Enter your grade" });
+        return res.status(400).json({ msg: "Enter your qualification" });
       }
       if (password.length < 6)
         return res
@@ -41,7 +41,7 @@ const tutorCtrl = {
         email,
         qualification,
         mobile,
-        subjects
+        //subjects
       });
       console.log(newTutor);
       //save to mongodb
@@ -115,9 +115,11 @@ const tutorCtrl = {
           if (err)
             return res.status(400).json({ msg: "Please Login or Register" });
           const tutorDetails = await Tutors.findById(tutor.id).select("-password");
+          const userDetails=await Users.find({subject:tutorDetails.subject})
+           // console.log("usr",userDetails);
 
           const accesstoken = createAccessToken({ id: tutor._id });
-          res.json({ accesstoken, rf_token, tutorDetails });
+          res.json({ accesstoken, rf_token, tutorDetails,userDetails});
         }
       );
     } catch (err) {
@@ -164,7 +166,7 @@ const tutorCtrl = {
     try {
       console.log("req.file.log",req.file);
       let avatar=req.file ? req.file.filename :  null
-      const { name, email, qualification, mobile, isApproved, subjects } = req.body;
+      const { name, email, qualification, mobile, isApproved, subject} = req.body;
 
       await Tutors.findOneAndUpdate(
         { tutorId: req.params.tutorId },
@@ -174,7 +176,7 @@ const tutorCtrl = {
           qualification,
           mobile,
           isApproved,
-          subjects,
+          subject,
           avatar
         }
       );

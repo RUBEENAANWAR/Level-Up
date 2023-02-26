@@ -31,6 +31,7 @@ router.post("/verify-email",userCtrl.verifyEmail)
 
 //tutors
 router.get("/allTutorDetails",tutorCtrl.getAllTutors)
+//router.get("/studentDetails",tutorCtrl.studentDetails)
 router.put("/tutorApprove/:tutorId",tutorCtrl.tutorApprovals)
 router.put("/adminTutorUpdate/:tutorId",upload.single('avatar'),tutorCtrl.adminTutorUpdate)
 

@@ -47,6 +47,24 @@ function AdminLogin() {
       </form>
 
     </div>
+
+  //   <div class="form">
+  //   <div class="title">Admin Login</div>
+  //   <form onSubmit={loginSubmit}>
+    
+  //   <div class="input-container ic2">
+  //     <input id="email" class="input" type="email" placeholder="" />
+  //     <div class="cut cut-short"></div>
+  //     <label for="email" class="placeholder" value={admin.email} onChange={onChangeInput}>EMAIL</label>
+  //   </div>
+  //   <div class="input-container ic2">
+  //     <input id="password" class="input" type="password" placeholder="" />
+  //     <div class="cut"></div>
+  //     <label for="password" class="placeholder" value={admin.password} onChange={onChangeInput}>PASSWORD</label>
+  //   </div>
+  //   <button type="submit" class="submit">LOGIN</button>
+  //   </form>
+  // </div>
   )
 }
 

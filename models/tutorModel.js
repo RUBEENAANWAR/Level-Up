@@ -45,8 +45,8 @@ const tutorSchema=new mongoose.Schema({
         type:String,
         default:"https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-default-avatar-profile-icon-vector-social-media-user-image-vector-illustration-227787227.jpg"
     },
-    subjects:{
-        type:Array,
+    subject:{
+        type:String,
     }
 })
 
