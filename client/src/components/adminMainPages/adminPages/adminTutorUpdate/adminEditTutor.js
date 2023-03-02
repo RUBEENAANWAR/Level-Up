@@ -92,24 +92,25 @@ useEffect(()=>{
           <label htmlFor="mobile">Mobile</label>
           <input type="text" value={tutor.mobile} name="mobile" id="mobile"  onChange={handleChangeInput}/>
         </div>
-        {/* <div className="row">
-          <label htmlFor="dob">Date of Birth</label>
-          <input type="text" name="dob" id="dob" onChange={handleChangeInput}/>
-        </div> */}
         <div className="row">
           <label htmlFor="subject">Subject</label>
-          <input type="subject" name="subject" id="subject"  onChange={handleChangeInput}/>
+          <input type="subject" value={tutor.subject} name="subject" id="subject"  onChange={handleChangeInput}/>
         </div>
         <div className="row">
           <label htmlFor="qualificaion">Qualificaion</label>
           <input type="text" value={tutor.qualification} name="qualificaion" id="qualificaion" onChange={handleChangeInput}/>
         </div>
         <div className="row">
-        <select>
-       <option value="true" onChange={handleChangeInput}>True</option>
-      <option value="false" onChange={handleChangeInput}>False</option> 
-      </select>
-          <input type="text" name="address" id="status" onChange={handleChangeInput}/>
+          <label htmlFor="approve">Access approval</label>
+          <select
+            id="approve"
+            name="isApproved"
+            defaultValue={tutor.isApproved}
+            onChange={handleChangeInput}
+          >
+            <option value="true">Approved</option>
+            <option value="false">Denied</option>
+          </select>
         </div>
         <div className="row">
           <label htmlFor="dob">Upload Image</label>

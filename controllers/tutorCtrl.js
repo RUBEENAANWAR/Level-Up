@@ -2,6 +2,8 @@ const Tutors = require("../models/tutorModel");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const Users=require('../models/userModel')
+const TimeTables=require('../models/timeTableModel')
+const Marks=require('../models/marksModel')
 
 const tutorCtrl = {
   tutorRegister: async (req, res) => {
@@ -41,29 +43,29 @@ const tutorCtrl = {
         email,
         qualification,
         mobile,
-        //subjects
+        subject,
       });
       console.log(newTutor);
       //save to mongodb
       await newTutor.save();
 
-      // //Then create jsonwebtoken for authentication
-      // const access_token = createAccessToken({ id: newUser._id });
-      // const refresh_token = createRefreshToken({ id: newUser._id });
-      // res.cookie("refreshtoken", refresh_token, {
-      //   httpOnly: true,
-      //   path: "/user/refresh_token",
-      //   maxAge: 30 * 24 * 60 * 60 * 1000, //30days
-      // });
+      //Then create jsonwebtoken for authentication
+      const access_token = createAccessToken({ id: newTutor._id });
+      const refresh_token = createRefreshToken({ id: newTutor._id });
+      res.cookie("refreshtoken", refresh_token, {
+        httpOnly:  true,
+        path: "/tutor/refresh_token",
+        maxAge: 30 * 24 * 60 * 60 * 1000, //30days
+      });
 
-      // res.json({
-      //   msg: "Student Registration Successful",
-      //   access_token,
-      //   user: {
-      //     ...newUser._doc,
-      //     password: "",
-      //   },
-      // });
+      res.json({
+        msg: "Tutor Registration Successful",
+        access_token,
+        tutor: {
+          ...newTutor._doc,
+          password: "",
+        },
+      });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }
@@ -114,16 +116,19 @@ const tutorCtrl = {
         async (err, tutor) => {
           if (err)
             return res.status(400).json({ msg: "Please Login or Register" });
-          const tutorDetails = await Tutors.findById(tutor.id).select("-password");
+            const accesstoken = createAccessToken({ id: tutor._id });
+            const tutorDetails = await Tutors.findById(tutor.id).select("-password");
           const userDetails=await Users.find({subject:tutorDetails.subject})
-           // console.log("usr",userDetails);
+          const timeTable=await TimeTables.find({subject:tutorDetails.subject})
+          const marks=await Marks.find({subject:tutorDetails.subject})
 
-          const accesstoken = createAccessToken({ id: tutor._id });
-          res.json({ accesstoken, rf_token, tutorDetails,userDetails});
+           // console.log("usr",userDetails);
+          res.json({ accesstoken, rf_token, tutorDetails,userDetails,timeTable,marks});
         }
       );
     } catch (err) {
-      return res.status(500).json({ msg: err.message });
+      //return res.status(500).json({ msg: err.message });
+      console.log(err.message);
     }
   },
   getTutor: async (req, res) => {
@@ -148,23 +153,24 @@ const tutorCtrl = {
     // console.log("getAllusers",allUserDetails);
   },
 
-  tutorApprovals: async (req, res) => {
-    try {
-      const { isApproved } = req.body;
-      await Tutors.findOneAndUpdate(
-        { tutorId: req.params.tutorId },
-        {
-          isApproved,
-        }
-      );
-      res.json({ msg: "Tutor Approved" });
-    } catch (err) {
-      res.status(500).json({ msg: err.message });
-    }
-  },
+  // tutorApprovals: async (req, res) => {
+  //   try {
+  //     const { isApproved } = req.body;
+  //     await Tutors.findOneAndUpdate(
+  //       { tutorId: req.params.tutorId },
+  //       {
+  //         isApproved,
+  //       }
+  //     );
+  //     res.json({ msg: "Tutor Approved" });
+  //   } catch (err) {
+  //     res.status(500).json({ msg: err.message });
+  //   }
+  // },
   adminTutorUpdate: async (req, res) => {
     try {
-      console.log("req.file.log",req.file);
+      //console.log("req.file.log",req.file);
+      //console.log("req.body",req.body);
       let avatar=req.file ? req.file.filename :  null
       const { name, email, qualification, mobile, isApproved, subject} = req.body;
 
@@ -185,6 +191,66 @@ const tutorCtrl = {
       res.status(500).json({ msg: err.message });
     }
   },
+  timeTableAdd:async (req,res)=>{
+    try{
+      const {grade,day,subject,time}=req.body
+      const newTimeTable=new TimeTables({
+        grade,
+        day,
+        subject,
+        time
+      });
+      await newTimeTable.save()
+      res.status(200).json(newTimeTable)
+    } catch (err) {
+      res.status(500).json({msg:err.message})
+    }
+  },
+  getTimeTable:async(req,res)=>{
+    try{
+      const tutor=await Tutors.findOne({tutorId:req.params.tutorId})
+      if(tutor===null){
+        return res.status(404).json({msg:"Tutor not found"})
+      }
+      const timeTable=await TimeTables.find({subject:tutor.subject})
+      if(!timeTable){
+        return res.status(404).json({msg:"Timetable not found"})
+      }
+      res.status(200).json({timeTable})
+    }catch(err){
+      res.status(500).json({msg:err.message})
+    }
+  },
+  marksAdd:async(req,res)=>{
+    try {
+      const{subject,grade,marks,name}=req.body
+      const newMarks=new Marks({
+        grade,
+        subject,
+        marks,
+        name
+      })
+      await newMarks.save()
+      res.status(200).json(newMarks)
+    } catch (err) {
+      res.status(500).json({msg:err.msg}) 
+    }
+  },
+  marksGet:async(req,res)=>{
+    try{
+      const tutor= await Tutors.findOne({tutorId:req.params.tutorId})
+      if(tutor===null){
+        return res.status(404).json({msg:"Tutor not found"})
+      }
+      const marks=await Marks.find({subject:tutor.subject})
+      if(!marks){
+        return res.status(404).json({msg:"Marks not found"})
+      }
+      res.status(200).json({marks})
+    }catch(err){
+      res.status(500).json({msg:err.message})
+    }
+    }
 };
 
 const createAccessToken = (tutor) => {

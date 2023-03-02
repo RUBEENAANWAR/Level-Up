@@ -116,9 +116,10 @@ function AdminEditUser() {
         <div className="row">
           <label htmlFor="subject">Subject</label>
           <input
-            type="subject"
+            type="text"
             name="subject"
             id="subject"
+            value={user.subject}
             onChange={handleChangeInput}
           />
         </div>
@@ -134,13 +135,14 @@ function AdminEditUser() {
         </div>
         <div className="row">
           <label htmlFor="approve">Access approval</label>
-          <select id="approve" name="approve">
-            <option value="true" onChange={handleChangeInput}>
-              Approved
-            </option>
-            <option value="false" onChange={handleChangeInput}>
-              Denied
-            </option>
+          <select
+            id="approve"
+            name="isApproved"
+            defaultValue={user.isApproved.toString()}
+            onChange={handleChangeInput}
+          >
+            <option value="true">Approved</option>
+            <option value="false">Denied</option>
           </select>
         </div>
         <div className="row">
@@ -153,7 +155,11 @@ function AdminEditUser() {
           />
         </div>
         <div>
-          <button type="button" style={{backgroundColor:"black"}} onClick={handleSubmit}>
+          <button
+            type="button"
+            style={{ backgroundColor: "black" }}
+            onClick={handleSubmit}
+          >
             Edit
           </button>
         </div>

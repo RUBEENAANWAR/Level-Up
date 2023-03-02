@@ -20,7 +20,7 @@ const TutorHome = () => {
       backgroundColor:"#ebebe8"
     }}>
       <Grid item xs={12} sm={6}>
-      <Link href="/ListOfStudents" style={{ textDecoration: "none" }}>
+      <Link href="/studentTimeTable" style={{ textDecoration: "none" }}>
         <Box sx={{
         backgroundColor:'#171717',
         color:'white',
@@ -32,10 +32,10 @@ const TutorHome = () => {
         cursor:'pointer',
         '&:hover':{
           backgroundColor:'#F9a602',
-        }}}>LIST OF STUDENTS & TIMING</Box></Link>
+        }}}>Time Table</Box></Link>
       </Grid>
       <Grid item xs={12} sm={6}>
-      <Link href="/totalhours" style={{ textDecoration: "none" }}>
+      <Link href="/studentMarks" style={{ textDecoration: "none" }}>
         <Box sx={{
         backgroundColor:'#171717',
         color:'white',
@@ -47,7 +47,7 @@ const TutorHome = () => {
         cursor:'pointer',
         '&:hover':{
           backgroundColor:'#F9a602',
-        }}}>TOTAL HOURS HANDLED</Box></Link>
+        }}}>Student Marks</Box></Link>
       </Grid>
       
       <Grid item xs={12} sm={6}>

@@ -1,0 +1,60 @@
+.main-div{
+    border: 0px solid black;
+     padding: 30px;
+}
+
+table {
+  margin-top:20px;
+  border-collapse: collapse;
+  width: 80%;
+  font-size: 14px;
+  text-align: left;
+  border: 2px solid black;
+
+}
+
+th, td {
+  border: 1px solid #cdc6c6;
+  padding: 8px;
+  text-align: center;
+}
+
+th {
+  background-color: #c2a0a0;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+}
+
+td {
+  background-color: #e0dfdf;
+  text-align: center;
+}
+
+tr:nth-child(even) td {
+  background-color: #c2bfbf;
+}
+.marks-container {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center; 
+}
+
+.update-button {
+  background-color: #924141;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.update-button:hover {
+  background-color:rgb(100, 215, 71);
+  align-items: center;
+}

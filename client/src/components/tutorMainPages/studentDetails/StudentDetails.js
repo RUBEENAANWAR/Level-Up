@@ -2,8 +2,8 @@ import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import "./StudentDetails.css";
-import { GlobalState } from "../../GlobalState";
-import NotFound from "../adminMainPages/utils/not_found/NotFound";
+import { GlobalState } from "../../../GlobalState";
+import NotFound from "../../adminMainPages/utils/not_found/NotFound";
 
 //import DataTable from 'react-data-table-component';
 

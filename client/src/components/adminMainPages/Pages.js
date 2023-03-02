@@ -17,15 +17,17 @@ import TutorLogin from '../tutorMainPages/tutorAuth/TutorLogin'
 import TutorRegister from '../tutorMainPages/tutorAuth/TutorRegister'
 import TutorHome from '../tutorMainPages/tutorHome/TutorHome' 
 import {GlobalState} from '../../GlobalState'
-import UserApproval from './adminPages/UserApproval'
-import TutorApproval from './adminPages/TutorApproval'
-import StudentDetails from '../tutorMainPages/StudentDetails'
+import UserApproval from './adminPages/userApproval/UserApproval'
+import TutorApproval from './adminPages/tutorApproval/TutorApproval'
+import StudentDetails from '../tutorMainPages/studentDetails/StudentDetails'
 import AdminEditUser from '../adminMainPages/adminPages/adminUserUpdate/AdminEditUser'
 import TutorProfile from '../tutorMainPages/tutorProfile/TutorProfile'
 import StudentHome from '../userMainPages/StudentHome'
 import UserProfile from '../userMainPages/userProfile/UserProfile'
 import AdminEditTutor from './adminPages/adminTutorUpdate/adminEditTutor'
 import TutorViewStds from "../tutorMainPages/tutorViewStds/TutorViewStds";
+import TimeTable from '../tutorMainPages/timeTable/TimeTable'
+import Marks from '../tutorMainPages/marks/StudentMarks'
 
 function MainPages() {
   const state=useContext(GlobalState)
@@ -68,6 +70,8 @@ function MainPages() {
       <Route path="/tutorProfile" exact element={<TutorProfile/>}/>
       <Route path='/studentDetails' exact element={<StudentDetails/>}/>
       {/* <Route exact path="/tutorViewStds" element={  <TutorViewStds/>} /> */}
+      <Route path='/studentTimeTable' exact element={<TimeTable/>}/>
+      <Route path='/studentMarks' exact element={<Marks/>}/>
     </Routes>
   )
 }

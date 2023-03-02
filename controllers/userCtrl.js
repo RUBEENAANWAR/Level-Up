@@ -105,6 +105,7 @@ const userCtrl = {
       }
       if (user.isApproved === "false")
         return res.status(400).json({ msg: "Waiting for admin approval" });
+      if(user.verified === false) return res.status(400).json({ msg: "Email is not verified" });
 
       //if login success create access token and refresh token
       const access_token = createAccessToken({ id: user._id });
