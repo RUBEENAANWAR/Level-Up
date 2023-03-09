@@ -12,7 +12,8 @@ const TutorHome = () => {
     <Grid container my={2} spacing={10} marginLeft={'3rem'} marginRight={'3rem'} marginBottom={'3rem'} backgroundColor={'#ebebe8'} style={{
       height: '100vh',
       display: 'flex',
-      flexDirection: 'column',        
+      flexDirection: 'column',
+             
       backgroundSize: "contain",
       backgroundRepeat: 'no-repeat',
       flexWrap: 'wrap',
@@ -32,7 +33,7 @@ const TutorHome = () => {
         cursor:'pointer',
         '&:hover':{
           backgroundColor:'#F9a602',
-        }}}>Time Table</Box></Link>
+        }}}>TIME TABLE</Box></Link>
       </Grid>
       <Grid item xs={12} sm={6}>
       <Link href="/studentMarks" style={{ textDecoration: "none" }}>
@@ -47,7 +48,7 @@ const TutorHome = () => {
         cursor:'pointer',
         '&:hover':{
           backgroundColor:'#F9a602',
-        }}}>Student Marks</Box></Link>
+        }}}>STUDENT MARKS</Box></Link>
       </Grid>
       
       <Grid item xs={12} sm={6}>

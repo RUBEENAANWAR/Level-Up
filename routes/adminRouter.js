@@ -38,4 +38,5 @@ router.put("/adminTutorUpdate/:tutorId",upload.single('avatar'),tutorCtrl.adminT
 
 
 
+
 module.exports=router

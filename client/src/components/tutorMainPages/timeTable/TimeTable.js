@@ -3,6 +3,7 @@ import './TimeTable.css';
 import axios from 'axios';
 import { GlobalState } from '../../../GlobalState';
 import NotFound from '../../adminMainPages/utils/not_found/NotFound';
+import {Link} from 'react-router-dom'
 
 const Timetable = () => {
   const state = useContext(GlobalState);
@@ -23,7 +24,7 @@ const Timetable = () => {
   return (
     <div className='main-div'>
     <div className="timetable-container">
-<button className="update-button">Update</button>
+     <Link to="/updateTimeTable"><button className="update-button">Update</button></Link>
       <table>
         <thead>
           <tr>

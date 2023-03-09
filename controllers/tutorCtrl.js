@@ -198,7 +198,7 @@ const tutorCtrl = {
         grade,
         day,
         subject,
-        time
+        time  
       });
       await newTimeTable.save()
       res.status(200).json(newTimeTable)
@@ -221,9 +221,19 @@ const tutorCtrl = {
       res.status(500).json({msg:err.message})
     }
   },
+  updateTimeTable:async(req,res)=>{
+    try {
+      const{grade,day,subject,time}=req.body
+      await TimeTables.findOneAndUpdate({grade,day,subject,time})
+      res.json({msg:"TimeTable upadated"})
+    } catch (err) {
+      res.status(500).json({msg:err.msg})
+    }
+  },
   marksAdd:async(req,res)=>{
     try {
       const{subject,grade,marks,name}=req.body
+      console.log(req.body)
       const newMarks=new Marks({
         grade,
         subject,
@@ -250,6 +260,18 @@ const tutorCtrl = {
     }catch(err){
       res.status(500).json({msg:err.message})
     }
+    },
+  updateMarks:async(req,res)=>{
+      try{
+      const{subject,grade,marks,name}=req.body
+      console.log("req.body",req.body)
+     let a = await Marks.findOneAndUpdate({name}, {marks,grade,subject})
+     console.log("findandupdate",a)
+    //  6401fad4b5499746fc3b2780
+      res.json({msg:"Marks updated"})
+      }catch(err){
+        res.status(500).json({msg:err.message})
+      }
     }
 };
 

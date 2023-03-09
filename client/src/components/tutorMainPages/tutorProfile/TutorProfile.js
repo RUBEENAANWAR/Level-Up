@@ -28,9 +28,6 @@ function TutorProfile() {
       }
     };
     useEffect(() => {
-     async function hi() {
-
-      }
       GetTutor();
     }, []);
     function LoggedRouter() {

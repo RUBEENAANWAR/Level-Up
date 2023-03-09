@@ -28,6 +28,8 @@ import AdminEditTutor from './adminPages/adminTutorUpdate/adminEditTutor'
 import TutorViewStds from "../tutorMainPages/tutorViewStds/TutorViewStds";
 import TimeTable from '../tutorMainPages/timeTable/TimeTable'
 import Marks from '../tutorMainPages/marks/StudentMarks'
+import UpdateTimetable from '../tutorMainPages/timeTableEdit.js/timeTableEdit'
+import UpdateMarks from '../tutorMainPages/updateMarks/UpdateMarks'
 
 function MainPages() {
   const state=useContext(GlobalState)
@@ -72,6 +74,8 @@ function MainPages() {
       {/* <Route exact path="/tutorViewStds" element={  <TutorViewStds/>} /> */}
       <Route path='/studentTimeTable' exact element={<TimeTable/>}/>
       <Route path='/studentMarks' exact element={<Marks/>}/>
+      <Route path='/timeTableEdit' exact element={<UpdateTimetable/>}/>
+      <Route path='/updateMarks' exact element={<UpdateMarks/>}/>
     </Routes>
   )
 }

@@ -12,5 +12,8 @@ router.get('/getTimeTable/:tutorId',tutorCtrl.getTimeTable)
 router.post('/timeTableAdd',tutorCtrl.timeTableAdd)
 router.get('/getMarks/:tutorId',tutorCtrl.marksGet)
 router.post('/addMarks',tutorCtrl.marksAdd)
+router.put("/updateMarks/:tutorId",tutorCtrl.updateMarks)
+router.put("/updateTimeTable/:tutorId",tutorCtrl.updateTimeTable)
+
              
 module.exports=router

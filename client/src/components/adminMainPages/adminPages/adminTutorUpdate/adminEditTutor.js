@@ -18,7 +18,6 @@ const initialState = {
 
 function AdminEditTutor() {
 //   const state=useContext(GlobalState)
-// console.log("globalstate",state);
 // const [isLogged,setIsLogged]=state.adminAPI.isLogged
 // const [isAdmin,setIsAdmin]=state.adminAPI.isAdmin
   const [tutor, setTutor] = useState(initialState);

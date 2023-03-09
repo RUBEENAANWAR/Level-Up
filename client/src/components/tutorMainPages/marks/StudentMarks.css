@@ -14,13 +14,13 @@ table {
 }
 
 th, td {
-  border: 1px solid #cdc6c6;
+  border: 1px solid #424242;
   padding: 8px;
   text-align: center;
 }
 
 th {
-  background-color: #c2a0a0;
+  background-color: #8a9137;
   color: white;
   font-weight: bold;
   text-align: center;
@@ -55,6 +55,6 @@ tr:nth-child(even) td {
 }
 
 .update-button:hover {
-  background-color:rgb(100, 215, 71);
+  background-color:rgb(247, 6, 6);
   align-items: center;
 }

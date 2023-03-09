@@ -1,6 +1,6 @@
 import {useState,useEffect} from 'react'
 import axios from 'axios'
-import swal from 'sweetalert2'
+
 
 function UserAPI(token){
     const[isUserLogged,setIsUserLogged]=useState(false)

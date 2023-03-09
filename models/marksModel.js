@@ -7,14 +7,18 @@ const marksSchema=new mongoose.Schema({
         required:true
     },
     subject:{
-           type:Array,
+           type:String,
            required:true
     },
     marks:{
         type:"string",
         required: true
     },
-
+    name:{
+        type:String,
+        required:true,
+        trim:true
+    },
     },{
         timeStamps:true
 })
